@@ -1,0 +1,39 @@
+<div class="top-menu">
+	{% if is_ajax %}
+		<a id="logo" class="box-element" onclick="ajaxUpdatePage('1')">nameless_os</a>
+	{% else %}
+		<a id="logo" class="box-element" href='/?page=1'>nameless_os</a>
+	{% endif %}
+	<div class="box">
+		<div class="dropdown">
+			<a class="box-element">Настройки</a>
+			<div class="dropdown-content">
+				<div class="flex-row-sb">
+					<input id="ajax_checkbox" type="checkbox"></input>
+					<label for="ajax_checkbox">Динамическое обновление сайта</label>
+				</div>
+				{% if user.is_staff %}
+					<div class="flex-row-sb">
+						<input id="cache_checkbox" type="checkbox"></input>
+						<label for="cache_checkbox">Кэширование содержимого страниц</label>
+					</div>
+					<div class="flex-row-sb last">
+						<input id="edit_checkbox" type="checkbox"></input>
+						<label for="edit_checkbox">Редактирование содержимого страниц</label>
+					</div>
+				{% else %}
+					<div class="flex-row-sb last">
+						<input id="cache_checkbox" type="checkbox"></input>
+						<label for="cache_checkbox">Кэширование содержимого страниц</label>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	{% if user.is_authenticated %}
+		<a class="box-element" href="/logout">Выйти</a>
+	{% else %}
+		<a class="box-element" href="/sign_in">Войти</a>
+<!---		<a class="box-element" href="/sign_up">Регистрация</a>-->
+	{% endif %}
+	</div>
+</div>

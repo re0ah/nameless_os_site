@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Войти</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static '/css/sign.css' %}">
+	<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shink-to-fit=no">
+</head>
+<body>
+		<div class="sign">
+			<div class="sign-logo-wrap"><a class="sign-logo" href="/">nameless_os</a></div>
+			{% if error %}
+				<div class="error" style="padding-bottom: 12px">
+					{{error}}
+				</div>
+			{% else %}
+				<div class="error">
+					{{error}}
+				</div>
+			{% endif %}
+			<form method="POST" action="/sign_in/">
+				{% csrf_token %}
+				<input type="text" name="user" placeholder="E-mail или имя пользователя" value="{{user}}" required>
+				<input type="password" name="password" placeholder="Пароль" required>
+				<div class="flex-row-sb" style="padding-top: 10px">
+					<button class="box-element sign-btn" type="submit">Войти</button>
+					<a class="box-element sign-btn" href="/sign_up">Регистрация</a>
+				</div>
+			</form>
+		</div>
+</body>
+</html>

@@ -1,0 +1,141 @@
+.content-wrap {
+	margin: 10px auto;
+	border: solid 2px #999;
+	min-height: 600px;
+}
+
+#content_header {
+	background-color: #3C3C3C;
+	border-bottom: solid 2px #999;
+	padding: 9px;
+	color: #C4C4C4;
+	font-size: 22px;
+	font-weight: 600;
+	text-align: right;
+	cursor: default;
+}
+
+#wrap_content {
+	align-items: flex-start;
+	background-color: #505050;
+}
+
+#content_list {
+	display: flex;
+	flex-direction: column-reverse;
+	justify-content: flex-end;
+	width: 200px;
+	background-color: #505050;
+	font-size: 14px;
+	overflow-y: auto;
+	scrollbar-width: 1px;
+}
+
+#content_list .box-element {
+	height: 40px;
+	padding: 8px;
+	border: none;
+	border-bottom: solid 2px #999;
+	color: #C4C4C4;
+	margin: 0;
+}
+
+#content_list .box-element:active {
+	box-shadow: none;
+}
+
+.content-text {
+	width: 700px;
+	background-color: #666;
+	font-size: 14px;
+	overflow-y: auto;
+	min-height: 534px;
+	scrollbar-width: 1px;
+	padding: 10px;
+	font-size: 18px;
+	border-left: solid 2px #999;
+}
+
+.content-text p {
+	color: #E1E1E1;
+	text-align: justify;
+	text-justify: inter-word;
+	margin-bottom: 8px;
+}
+
+.tab {
+	margin-left: 24px;
+}
+
+.flex-row-sb {
+	display: flex;
+	justify-content: space-between;
+}
+
+@media screen and (max-width: 1000px) {
+	.content-text {
+		width: 600px;
+	}
+}
+
+@media screen and (max-width: 900px) {
+	.content-text {
+		width: 500px;
+	}
+
+	.box-element {
+		font-size: 14px;
+	}
+
+	#content_list .box-element {
+		font-size: 16px;
+	}
+
+	#logo a {
+		font-size: 26px;
+	}
+
+	.btn-back {
+		font-size: 25px;
+	}
+
+	.dropdown-content {
+		left: -114px;
+		top: 35px;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	#content_header {
+		text-align: center;
+	}
+
+	.content-wrap {
+		margin: 0;
+		max-height: unset !important;
+	}
+
+	#wrap_content {
+		flex-direction: column;
+		background-color: #222;
+	}
+
+	#content_list {
+		width: 100%;
+		max-height: none;
+		min-height: auto;
+		overflow-y: auto;
+		border-right: none;
+		margin-bottom: 100px;
+	}
+
+	.content-text {
+		min-height: 600px;
+		overflow-y: auto;
+		border-top: solid 2px #999;
+		box-sizing: border-box;
+		border-left: none;
+		width: 100%;
+		font-size: 16px;
+	}
+}

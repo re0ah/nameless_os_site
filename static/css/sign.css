@@ -1,0 +1,80 @@
+.sign {
+	margin: auto;
+	width: 400px;
+	margin-top: 75px;
+	background: #111;
+	padding: 15px;
+	border: solid 2px #999;
+}
+
+.sign-logo {
+	font-size: 26px;
+}
+
+.sign-logo-wrap {
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+.sign input {
+	margin-bottom: 15px;
+}
+
+.sign-btn {
+	margin: 0;
+	background: #222;
+	cursor: pointer;
+}
+
+.sign-btn:hover {
+	background: #2A2A2A;
+	border-color: #777;
+	color: #BBB;
+}
+
+.error {
+	color: #A00;
+	text-align: center;
+	margin-bottom: 5px;
+}
+
+@media screen and (max-width: 768px) {
+	body {
+		background: #111;
+	}
+
+	.sign {
+		margin-top: 0;
+		width: calc(100% - 34px);
+		border: none;
+	}
+
+	.sign-logo {
+		font-size: 48px;
+	}
+
+	.sign-logo-wrap {
+		margin-bottom: 100px;
+	}
+
+	.error {
+		margin-bottom: 48px;
+		font-size: 26px;
+	}
+
+	.sign input {
+		font-size: 28px;
+		margin: auto;
+		margin-bottom: 50px;
+		width: 80%;
+	}
+
+	.sign-btn {
+		font-size: 24px;
+		margin-bottom: 35px;
+	}
+
+	.flex-row-sb {
+		flex-direction: column;
+	}
+}

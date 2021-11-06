@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<meta charset="utf-8">
+		<title>{{ title }}</title>
+		{% load static %}
+		<link rel="stylesheet" href="{% static 'css/main.css' %}">
+		<link rel="stylesheet" href="{% static 'css/home.css' %}">
+		{% if user.is_staff and is_edit %}
+			<link rel="stylesheet" href="{% static 'css/editor.css' %}">
+		{% endif %}
+		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shink-to-fit=no">
+    </head>
+    <body>
+	{% include 'top_menu.html' %}
+	<div id="content_wrap" class="content-wrap">
+		{% if user.is_staff and is_edit %}
+			<input id="content_header" type="text" value="{{ title | safe }}"></input>
+		{% else %}
+			<div id="content_header">{{ title }}</div>
+		{% endif %}
+		<div id="wrap_content" class="flex-row-sb">
+			<div id="content_list">
+				{{content_list | safe}}
+			</div>
+			{% if user.is_staff and is_edit %}
+			<div id="edit_panel">
+				<div id="edit_bar">
+					<a class="box-element" onclick="save_page_data()">Сохранить</a>
+					<div class="flex-row-sb">
+						<input id="show_edit_checkbox" type="checkbox"></input>
+						<label for="show_edit_checkbox">Редактор</label>
+					</div>
+					<div class="flex-row-sb">
+						<input id="show_result_checkbox" type="checkbox"></input>
+						<label for="show_result_checkbox">Результат</label>
+					</div>
+				</div>
+				<div id="wrap_editor" class="flex-row-sb">
+					<div id="wrap-content-editor" class="wrap-content">
+						<h2 class="wrap-content-header">Редактор</h2>
+						<textarea type="text" id="content" class="content-text">{{content_text}}</textarea>
+					</div>
+					<div id="wrap-content-view" class="wrap-content">
+						<h2 class="wrap-content-header">Результат</h2>
+						<div id="content_view" class="content-text">{{content_text | safe}}</div>
+					</div>
+				</div>
+			</div>
+			{% else %}
+				<div id="content" class="content-text">
+		 			{{content_text | safe}}
+				</div>
+			{% endif %}
+		</div>
+	</div>
+    </body>
+	{% csrf_token %}
+    <script>
+		const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+	</script>
+    <script type="text/javascript" src="{% static 'js/home.js' %}"></script>
+	{% if user.is_staff %}
+    <script>
+		setCheckboxValue($("#edit_checkbox"), (getCookie("edit_checkbox") === "true"));
+
+		$("#edit_checkbox").onclick = () => {
+			document.cookie = `edit_checkbox=${document.getElementById("edit_checkbox").checked}`;
+			window.location.reload();
+		}
+    </script>
+	{% endif %}
+
+	{% if user.is_staff and is_edit %}
+    	<script type="text/javascript" src="{% static 'js/editor.js' %}"></script>
+	{% endif %}
+</html>

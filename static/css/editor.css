@@ -1,0 +1,105 @@
+#edit_bar {
+	display: flex;
+	border-left: solid 2px #999;
+}
+
+#content {
+	color: #FFF;
+}
+
+#edit_bar a, #edit_bar div {
+	margin: 0;
+	border: none;
+	border-right: solid 2px #999;
+	background: #666;
+	cursor: pointer;
+}
+
+#edit_bar a:active {
+	box-shadow: none;
+}
+
+#edit_bar input {
+	margin-right: 6px;
+}
+
+#edit_bar div {
+	padding: 6px;
+}
+
+#edit_bar label {
+	cursor: pointer;
+}
+
+#edit_panel {
+	width: 100%;
+}
+
+.content-text {
+	outline: 0;
+	border: none;
+	border-top: solid 2px #999;
+	border-left: solid 2px #999;
+	width: 100%;
+	box-sizing: border-box;
+	resize: none;
+}
+
+.content-wrap {
+	width: 90%;
+	min-height: 659px;
+}
+
+.wrap-content {
+	width: 100%;
+}
+
+.wrap-content-header {
+	border: solid 2px #999;
+	text-align: center;
+	padding: 5px;
+	border-bottom: none;
+	border-right: none;
+	background-color: #444;
+	cursor: default;
+}
+
+#wrap_editor {
+	align-items: flex-start;
+}
+
+#content_header {
+	cursor: text;
+	border: none;
+	border-bottom: solid 2px #999;
+}
+
+@media screen and (max-width: 768px) {
+	#edit_panel {
+		width: 100%;
+		border: solid 2px #999;
+		box-sizing: border-box;
+	}
+
+	.content-wrap {
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	#wrap_editor {
+		flex-direction: column;
+	}
+
+	.content-text {
+		border: none;
+		border-top: solid 2px #999;
+	}
+
+	#edit_bar {
+		border: none;
+	}
+
+	.wrap-content-header {
+		border-left: none;
+	}
+}
