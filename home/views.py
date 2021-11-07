@@ -45,7 +45,7 @@ class Home_view(TemplateView):
 				"content_text": page.content,
 				"content_list": Manage.get_html_content_list_ajax(page),
 				"is_ajax": ajax_checkbox,
-				"is_edit": edit_checkbox
+				"is_edit": edit_checkbox,
 			}
 			return JsonResponse(result)
 		

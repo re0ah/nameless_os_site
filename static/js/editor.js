@@ -6,17 +6,16 @@ function changeSiteContent(data) {
 
 initCheckbox("edit_checkbox", () => window.location.reload());
 
-const __f_se_chkb = () => {
-	$("#wrap-content-editor").style.display = $("#show_edit_checkbox").checked ? "block" : "none";
+function __f_chkb(obj, chkb) {
+	return () => obj.style.display = chkb.checked ? "block" : "none";
 };
-initCheckbox("show_edit_checkbox", __f_se_chkb);
+const __f_se_chkb = __f_chkb($("#wrap-content-editor"), $("#show_edit_checkbox"));
 __f_se_chkb();
+initCheckbox("show_edit_checkbox", __f_se_chkb);
 
-const __f_sr_chkb = () => {
-	$("#wrap-content-view").style.display = $("#show_result_checkbox").checked ? "block" : "none";
-};
-initCheckbox("show_result_checkbox", __f_sr_chkb);
+const __f_sr_chkb = __f_chkb($("#wrap-content-view"), $("#show_result_checkbox"));
 __f_sr_chkb();
+initCheckbox("show_result_checkbox", __f_sr_chkb);
 
 function save_page_data() {
 	if (confirm("Сохранить содержимое страницы?") === false)
@@ -32,10 +31,10 @@ function save_page_data() {
 		credentials: 'same-origin',
 	})
 		.then((data) => {
-			if ($("#ajax_checkbox").checked === false)
-				window.location.reload();
-			else
+			if ($("#ajax_checkbox").checked)
 				changeSiteContent(getPageData(decodeURI(document.URL.split('=')[1])));
+			else
+				window.location.reload();
 		})
 }
 

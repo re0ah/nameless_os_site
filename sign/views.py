@@ -85,7 +85,12 @@ class Sign_up_view(TemplateView):
 		login(request, new_user)
 		return HttpResponseRedirect("/")
 
-def redirect_logout(response):
-	logout(response)
+def redirect_logout(request):
+	logout(request)
 	return HttpResponseRedirect("/")
 
+def check_authorization(request):
+	if request.user.id == None:
+		return JsonResponse({"state": False})
+	else:
+		return JsonResponse({"state": True})

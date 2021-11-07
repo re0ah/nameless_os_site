@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from home.views import Home_view, Manage
-from sign.views import Sign_in_view, Sign_up_view, redirect_logout
+from sign.views import Sign_in_view, Sign_up_view, redirect_logout, check_authorization
+from bug_tracker.views import get_bug_report
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,5 +25,7 @@ urlpatterns = [
 	path('save_page/', Manage.save_page),
 	path('sign_in/', Sign_in_view.as_view()),
 	path('sign_up/', Sign_up_view.as_view()),
+	path('check_authorization/', check_authorization),
 	path('logout/', redirect_logout),
+	path('get_bug_report/', get_bug_report),
 ]

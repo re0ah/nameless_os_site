@@ -11,6 +11,15 @@ function getCookie(name) {
 
 var $ = document.querySelector.bind(document);
 
+function checkAuthorization() {
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", `/check_authorization/`, false);
+	xhr.send(null);
+	return JSON.parse(xhr.responseText)["state"];
+}
+
+console.log("checkauth", checkAuthorization());
+
 function setCheckboxValue(checkbox, value) {
 	if (value === null)
 		return
