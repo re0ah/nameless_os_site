@@ -1,0 +1,45 @@
+#wrap_bug_report {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: auto;
+    margin-top: 25px;
+}
+
+#title_bug_report {
+    border: solid 2px #999;
+    border-bottom: none;
+    font-size: 22px;
+    padding: 8px;
+    text-align: center;
+}
+
+#textarea_bug_report {
+    resize: vertical;
+    min-height: 250px;
+    background-color: #444;
+    border: solid 2px #999;
+    padding: 8px;
+    font-size: 20px;
+    outline: none;
+}
+
+#btn_send_bug_report {
+     margin: 0;
+     background-color: #444;
+     width: 80px;
+     border: solid 2px #999;
+     border-top: none;
+}
+
+#btn_send_bug_report:active {
+    box-shadow: none;
+    background-color: #333;
+}
+
+#notice_bug_report {
+    text-align: center;
+    margin-top: 15px;
+    color: #822;
+    font-size: 18px;
+}

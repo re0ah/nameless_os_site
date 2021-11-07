@@ -6,7 +6,9 @@ class Page(models.Model):
 		verbose_name_plural = "Страница"
 	active		= models.BooleanField(blank=False)
 	title		= models.CharField(max_length=64, verbose_name='Название страницы', default="Страница", blank=True)
-	content		= models.TextField(verbose_name='Содержание страницы', blank=True)
+	html		= models.TextField(verbose_name='Содержание страницы', blank=True)
+	css			= models.FileField(blank=True)
+	js			= models.FileField(blank=True)
 	date_change	= models.DateField(default=datetime.date.today)
 	master_page = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)
 	slave_pages = models.ManyToManyField("self", symmetrical=False, null=True, blank=True, related_name='+')

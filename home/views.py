@@ -39,10 +39,23 @@ class Home_view(TemplateView):
 		except:
 			edit_checkbox = False
 
+		page.css.open(mode='r')
+		page_css_text= page.css.read()
+		page.css.close()
+
+		page.js.open(mode='r')
+		page_js_text= page.js.read()
+		page.js.close()
+		print(page.js.url)
+
 		if ("is_ajax" in request.GET) & ajax_checkbox:
 			result = {
 				"title": page.title,
-				"content_text": page.content,
+				"html": page.html,
+				"css_url":  page.css.url,
+				"css_text": page_css_text,
+				"js_url":  page.js.url,
+				"js_text": page_js_text,
 				"content_list": Manage.get_html_content_list_ajax(page),
 				"is_ajax": ajax_checkbox,
 				"is_edit": edit_checkbox,
@@ -51,7 +64,11 @@ class Home_view(TemplateView):
 		
 		ctx = {
 			"title": page.title,
-			"content_text": page.content,
+			"html": page.html,
+			"css_url":  page.css.url,
+			"css_text": page_css_text,
+			"js_url":  page.js.url,
+			"js_text": page_js_text,
 			"page_now_main": page_now_main,
 			"user": user,
 			"is_ajax": ajax_checkbox,
@@ -146,8 +163,19 @@ class Manage():
 		return html_content_list
 
 	def save_page(request):
+		if request.user.id == None:
+			return JsonResponse({})
 		page = Page.objects.get(id=int(request.POST["page"]))
-		page.content = request.POST["data"]
+		page.html = request.POST["data"]
 		page.title = request.POST["page_name"]
+
+		page.css.open(mode='w')
+		page.css.write(request.POST['css'])
+		page.css.close()
+
+		page.js.open(mode='w')
+		page.js.write(request.POST['js'])
+		page.js.close()
+
 		page.save()
 		return JsonResponse({})
