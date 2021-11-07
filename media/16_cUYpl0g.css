@@ -1,0 +1,57 @@
+#wrap_task_offer {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: auto;
+    margin-top: 25px;
+}
+
+#title_task_offer {
+    border: solid 2px #999;
+    border-bottom: none;
+    font-size: 22px;
+    padding: 8px;
+    text-align: center;
+}
+
+#textarea_task_offer {
+    resize: vertical;
+    min-height: 250px;
+    background-color: #444;
+    border: solid 2px #999;
+    padding: 8px;
+    font-size: 20px;
+    outline: none;
+}
+
+#btn_send_task_offer {
+     margin: 0;
+     background-color: #444;
+     width: 80px;
+     border: solid 2px #999;
+     border-top: none;
+}
+
+#btn_send_task_offer:active {
+    box-shadow: none;
+    background-color: #333;
+}
+
+#notice_task_offer {
+    text-align: center;
+    margin-top: 15px;
+    color: #822;
+    font-size: 18px;
+}
+
+@media screen and (max-width: 900px) {
+#btn_send_task_offer {
+    font-size: 16px !important;
+}
+}
+
+@media screen and (max-width: 768px) {
+#wrap_task_offer {
+    width: 95% !important;
+}
+}

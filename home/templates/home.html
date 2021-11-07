@@ -99,8 +99,6 @@
 
 	{% if user.is_staff and is_edit %}
     	<script type="text/javascript" src="{% static 'js/editor.js' %}"></script>
-	{% else %}
-	    <script type="text/javascript" src="{% static 'js/user.js' %}"></script>
 	{% endif %}
     <script type="text/javascript" src="{{ js_url }}"></script>
 </html>

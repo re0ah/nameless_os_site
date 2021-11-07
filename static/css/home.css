@@ -2,6 +2,7 @@
 	margin: 10px auto;
 	border: solid 2px #999;
 	min-height: 580px;
+	height: calc(95vh - 70px);
 }
 
 #content_header {
@@ -18,6 +19,7 @@
 #wrap_content {
 	align-items: flex-start;
 	background-color: #505050;
+	height: calc(100% - 47px);
 }
 
 #content_list {
@@ -25,6 +27,7 @@
 	flex-direction: column-reverse;
 	justify-content: flex-end;
 	width: 200px;
+	height: 100%;
 	background-color: #505050;
 	font-size: 14px;
 	overflow-y: auto;
@@ -46,11 +49,11 @@
 
 .content-text {
 	width: 700px;
+	height: 100%;
 	background-color: #666;
 	font-size: 14px;
 	overflow-y: auto;
-	min-height: 534px;
-	scrollbar-width: 1px;
+	scrollbar-width: thin;
 	font-size: 18px;
 	border-left: solid 2px #999;
 }
@@ -117,6 +120,7 @@
 	#wrap_content {
 		flex-direction: column;
 		background-color: #222;
+		max-height: unset !important;
 	}
 
 	#content_list {

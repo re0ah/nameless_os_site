@@ -3,21 +3,21 @@ from .models import Bug, Bug_type
 import datetime
 from django.http import HttpResponse, JsonResponse
 
-def get_bug_report(request):
-	if request.user.id == None:
-		return HttpResponse(status=401)
-
-	bug_type = Bug_type.objects.get(title="На рассмотрении")
-	bug = Bug(active=True,
-			  title=request.POST["title"],
-			  content=request.POST["text"],
-			  bug_type=bug_type,
-			  author=request.user
-	)
-	bug.save()
-	return HttpResponse(status=200)
-
 class Manage_bug_tracker():
+	def get_bug_report(request):
+		if request.user.id == None:
+			return HttpResponse(status=401)
+
+		bug_type = Bug_type.objects.get(title="На рассмотрении")
+		bug = Bug(active=True,
+				  title=request.POST["title"],
+				  content=request.POST["text"],
+				  bug_type=bug_type,
+				  author=request.user
+		)
+		bug.save()
+		return HttpResponse(status=200)
+
 	def create_html_node(title:str,
 						 content:str,
 						 author:str,
@@ -52,16 +52,11 @@ class Manage_bug_tracker():
 		for i in Bug.objects.all():
 			args = (i.title, i.content, i.author.username, i.bug_type.title, i.date_create)
 			if i.bug_type.id == 1:  # На рассмотрении
-				if request.user.is_staff:
-					result += Manage_bug_tracker.create_html_node(*args)
-			elif i.bug_type.id == 2:  # Исправлено
-				pass
-				#result += create_html_node(*args)
+				result += Manage_bug_tracker.create_html_node(*args)
 			elif i.bug_type.id == 3:  # В процессе
 				result += Manage_bug_tracker.create_html_node(*args)
 			elif i.bug_type.id == 4:  # Отклонено
-				if request.user.is_staff:
-					result += Manage_bug_tracker.create_html_node(*args)
+				result += Manage_bug_tracker.create_html_node(*args)
 
 		return JsonResponse({"bug_list": result})
 

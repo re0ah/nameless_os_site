@@ -1,1 +1,59 @@
-2
+.wrap-task-title-state, .task-text, .task-info-bar, .task-open-comments {
+    border: solid 2px #999;
+}
+
+.task-title, .task-state, .task-text, .task-user-created, .task-data-created, .task-open-comments {
+    padding: 5px;
+}
+
+.task-title, .task-state, .task-text, .task-info-bar, .task-user-created, .task-data-created, .task-open-comments {
+    color: #BBB;
+}
+
+.task-message {
+    margin: 10px;
+}
+
+.wrap-task-title-state {
+    background: #555;
+}
+
+.task-state {
+    border-left: solid 2px #999;
+    background: #333;
+}
+
+.task-text {
+    border-top: none;
+    background: #444;
+}
+
+.task-info-bar {
+    border-top: none;
+    background: #555;
+}
+
+.task-data-created {
+    border-left: solid 2px #999;
+    background: #333;
+}
+
+.task-open-comments {
+    border-top: none;
+    width: 194px;
+    cursor: pointer;
+    background: #555;
+    transition: 0.2s;
+}
+
+.task-open-comments:hover {
+    background: #444;
+}
+
+.task-open-comments:active {
+    background: #333;
+}
+
+.task-space-between {
+    border-top: solid 2px #999;
+}

@@ -22,7 +22,8 @@ from django.views.static import serve
 
 from home.views import Home_view, Manage
 from sign.views import Sign_in_view, Sign_up_view, redirect_logout, check_authorization
-from bug_tracker.views import get_bug_report, Manage_bug_tracker
+from bug_tracker.views import Manage_bug_tracker
+from task.views import Manage_task_tracker
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,8 +33,12 @@ urlpatterns = [
 	path('sign_up/', Sign_up_view.as_view()),
 	path('check_authorization/', check_authorization),
 	path('logout/', redirect_logout),
-	path('get_bug_report/', get_bug_report),
+	path('get_bug_report/', Manage_bug_tracker.get_bug_report),
 	path('get_bug_list_current/', Manage_bug_tracker.get_bug_list_current),
 	path('get_bug_list_solved/', Manage_bug_tracker.get_bug_list_solved),
+	path('get_task_offer/', Manage_task_tracker.get_task_offer),
+	path('get_task_list_current/', Manage_task_tracker.get_task_list_current),
+	path('get_task_list_solved/', Manage_task_tracker.get_task_list_solved),
+	path('get_task_list_deffered/', Manage_task_tracker.get_task_list_deffered),
 	re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
 ]
