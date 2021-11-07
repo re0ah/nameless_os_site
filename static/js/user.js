@@ -1,6 +1,6 @@
 function windowResize() {
-	$("#content_wrap").style.maxHeight = (window.innerHeight - 100) + "px";
-	$("#content").style.maxHeight = (window.innerHeight - 170) + "px";
+	$("#content_wrap").style.maxHeight = (window.innerHeight - 70) + "px";
+	$("#content").style.maxHeight = (window.innerHeight - 140) + "px";
 };
 
 window.addEventListener('resize', windowResize);

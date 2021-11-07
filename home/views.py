@@ -164,7 +164,7 @@ class Manage():
 
 	def save_page(request):
 		if request.user.id == None:
-			return JsonResponse({})
+			return HttpResponse(status=401)
 		page = Page.objects.get(id=int(request.POST["page"]))
 		page.html = request.POST["data"]
 		page.title = request.POST["page_name"]
@@ -178,4 +178,4 @@ class Manage():
 		page.js.close()
 
 		page.save()
-		return JsonResponse({})
+		return HttpResponse(status=200)

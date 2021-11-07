@@ -1,26 +1,32 @@
 var $ = document.querySelector.bind(document);
 
+var __script;
 function addScript(src) {
+	if(__script !== undefined)
+	    document.getElementsByTagName('head')[0].removeChild(__script);
     var s = document.createElement('script');
     s.type = 'text/javascript';
     s.src = src;
     document.getElementsByTagName('head')[0].appendChild(s);
-    return s;
+	__script = s;
 }
 
+var __style;
 function addStyle(src) {
+	if(__style !== undefined)
+	    document.getElementsByTagName('head')[0].removeChild(__style);
     var s = document.createElement('link');
     s.rel = 'stylesheet';
     s.href = src;
     document.getElementsByTagName('head')[0].appendChild(s);
-    return s;
+	__style = s;
 }
 
 function checkAuthorization() {
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", `/check_authorization/`, false);
 	xhr.send(null);
-	return JSON.parse(xhr.responseText)["state"];
+	return xhr.status === 200;
 }
 
 function changeSiteContent(data) {

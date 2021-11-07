@@ -38,18 +38,30 @@
 						<input id="show_result_checkbox" type="checkbox"></input>
 						<label for="show_result_checkbox">Результат</label>
 					</div>
+					<div class="flex-row-sb">
+						<input id="show_html_checkbox" type="checkbox"></input>
+						<label for="show_html_checkbox">HTML</label>
+					</div>
+					<div class="flex-row-sb">
+						<input id="show_css_checkbox" type="checkbox"></input>
+						<label for="show_css_checkbox">CSS</label>
+					</div>
+					<div class="flex-row-sb">
+						<input id="show_js_checkbox" type="checkbox"></input>
+						<label for="show_js_checkbox">JS</label>
+					</div>
 				</div>
 				<div id="wrap_editor" class="flex-row-sb">
 					<div id="wrap-content-editor" class="wrap-content">
-						<div>
+						<div id="wrap_content_html">
 							<h2 class="wrap-content-header">HTML</h2>
 							<textarea type="text" id="content_html" class="content-text">{{ html }}</textarea>
 						</div>
-						<div>
+						<div id="wrap_content_css">
 							<h2 class="wrap-content-header">CSS</h2>
 							<textarea type="text" id="content_css" class="content-text">{{ css_text }}</textarea>
 						</div>
-						<div>
+						<div id="wrap_content_js">
 							<h2 class="wrap-content-header">JS</h2>
 							<textarea type="text" id="content_js" class="content-text">{{ js_text }}</textarea>
 						</div>

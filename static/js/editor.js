@@ -19,6 +19,19 @@ const __f_sr_chkb = __f_chkb($("#wrap-content-view"), $("#show_result_checkbox")
 initCheckbox("show_result_checkbox", __f_sr_chkb);
 __f_sr_chkb();
 
+const __f_shtml_chkb = __f_chkb($("#wrap_content_html"), $("#show_html_checkbox"));
+initCheckbox("show_html_checkbox", __f_shtml_chkb);
+__f_shtml_chkb();
+
+const __f_scss_chkb = __f_chkb($("#wrap_content_css"), $("#show_css_checkbox"));
+initCheckbox("show_css_checkbox", __f_scss_chkb);
+__f_scss_chkb();
+
+const __f_sjs_chkb = __f_chkb($("#wrap_content_js"), $("#show_js_checkbox"));
+initCheckbox("show_js_checkbox", __f_sjs_chkb);
+__f_sjs_chkb();
+
+
 function save_page_data() {
 	if (confirm("Сохранить содержимое страницы?") === false)
 		return;

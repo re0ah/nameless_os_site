@@ -42,13 +42,13 @@
 	border-left: solid 2px #999;
 	width: 100%;
 	box-sizing: border-box;
-	resize: none;
 	min-height: 615px;
 }
 
 #wrap-content-editor .content-text {
 	min-height: 178px;
 	color: #CCC;
+	padding: 10px;
 }
 
 .content-wrap {

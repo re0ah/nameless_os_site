@@ -1,1 +1,59 @@
-2
+.wrap-bug-title-state, .bug-text, .bug-info-bar, .bug-open-comments {
+    border: solid 2px #999;
+}
+
+.bug-title, .bug-state, .bug-text, .bug-user-created, .bug-data-created, .bug-open-comments {
+    padding: 5px;
+}
+
+.bug-title, .bug-state, .bug-text, .bug-info-bar, .bug-user-created, .bug-data-created, .bug-open-comments {
+    color: #BBB;
+}
+
+.bug-message {
+    margin: 10px;
+}
+
+.wrap-bug-title-state {
+    background: #555;
+}
+
+.bug-state {
+    border-left: solid 2px #999;
+    background: #333;
+}
+
+.bug-text {
+    border-top: none;
+    background: #444;
+}
+
+.bug-info-bar {
+    border-top: none;
+    background: #555;
+}
+
+.bug-data-created {
+    border-left: solid 2px #999;
+    background: #333;
+}
+
+.bug-open-comments {
+    border-top: none;
+    width: 194px;
+    cursor: pointer;
+    background: #555;
+    transition: 0.2s;
+}
+
+.bug-open-comments:hover {
+    background: #444;
+}
+
+.bug-open-comments:active {
+    background: #333;
+}
+
+.bug-space-between {
+    border-top: solid 2px #999;
+}

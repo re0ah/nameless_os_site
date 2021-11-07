@@ -8,6 +8,12 @@ function sendBugReport() {
                 body: data,
                 credentials: 'same-origin',
         })
+        .then((response) => {
+                if(response.status === 200)
+                        alert("Сообщение об ошибке передано успешно.")
+                else
+                        alert("Сообщение передать не удалось.")
+        });
 }
 
 if (checkAuthorization() === false) {

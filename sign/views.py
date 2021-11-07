@@ -91,6 +91,6 @@ def redirect_logout(request):
 
 def check_authorization(request):
 	if request.user.id == None:
-		return JsonResponse({"state": False})
+		return HttpResponse(status=401)
 	else:
-		return JsonResponse({"state": True})
+		return HttpResponse(status=200)
