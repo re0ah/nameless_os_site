@@ -13,26 +13,17 @@
 					<label for="ajax_checkbox">Динамическое обновление сайта</label>
 				</div>
 				{% if user.is_staff %}
-					<div class="flex-row-sb">
-						<input id="cache_checkbox" type="checkbox"></input>
-						<label for="cache_checkbox">Кэширование содержимого страниц</label>
-					</div>
 					<div class="flex-row-sb last">
 						<input id="edit_checkbox" type="checkbox"></input>
 						<label for="edit_checkbox">Редактирование содержимого страниц</label>
-					</div>
-				{% else %}
-					<div class="flex-row-sb last">
-						<input id="cache_checkbox" type="checkbox"></input>
-						<label for="cache_checkbox">Кэширование содержимого страниц</label>
 					</div>
 				{% endif %}
 			</div>
 		</div>
 	{% if user.is_authenticated %}
-		<a class="box-element" href="/logout">Выйти</a>
+		<a class="box-element" onclick="logout()">Выйти</a>
 	{% else %}
-		<a class="box-element" href="/sign_in">Войти</a>
+		<a class="box-element" href="/sign_in/">Войти</a>
 <!---		<a class="box-element" href="/sign_up">Регистрация</a>-->
 	{% endif %}
 	</div>

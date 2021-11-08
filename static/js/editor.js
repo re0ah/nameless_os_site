@@ -1,42 +1,34 @@
+{
+	const initCheckbox2 = (obj_name, checkbox_name, disp) => {
+		const func = () => document.getElementById(obj_name).style.display = document.getElementById(checkbox_name).checked ? disp : "none";
+		initCheckbox(checkbox_name, func);
+		func();
+	}
+
+	initCheckbox2("wrap-content-editor", "show_edit_checkbox", "grid");
+	initCheckbox2("wrap-content-view", "show_result_checkbox", "block");
+	initCheckbox2("wrap_content_html", "show_html_checkbox", "block");
+	initCheckbox2("wrap_content_css", "show_css_checkbox", "block");
+	initCheckbox2("wrap_content_js", "show_js_checkbox", "block");
+}
+
 function changeSiteContent(data) {
 	$("#content_html").value = data["html"];
 	$("#content_css").value = data["css_text"];
 	$("#content_js").value = data["js_text"];
 	$("#content_header").value = document.title = data["title"];
 	$("#content_list").innerHTML = data["content_list"];
+	addScript(data["js_url"]);
+	addStyle(data["css_url"]);
 }
 
 initCheckbox("edit_checkbox", () => window.location.reload());
-
-function __f_chkb(obj, chkb, disp) {
-	return () => obj.style.display = chkb.checked ? disp : "none";
-};
-const __f_se_chkb = __f_chkb($("#wrap-content-editor"), $("#show_edit_checkbox"), "grid");
-initCheckbox("show_edit_checkbox", __f_se_chkb);
-__f_se_chkb();
-
-const __f_sr_chkb = __f_chkb($("#wrap-content-view"), $("#show_result_checkbox"), "block");
-initCheckbox("show_result_checkbox", __f_sr_chkb);
-__f_sr_chkb();
-
-const __f_shtml_chkb = __f_chkb($("#wrap_content_html"), $("#show_html_checkbox"), "block");
-initCheckbox("show_html_checkbox", __f_shtml_chkb);
-__f_shtml_chkb();
-
-const __f_scss_chkb = __f_chkb($("#wrap_content_css"), $("#show_css_checkbox"), "block");
-initCheckbox("show_css_checkbox", __f_scss_chkb);
-__f_scss_chkb();
-
-const __f_sjs_chkb = __f_chkb($("#wrap_content_js"), $("#show_js_checkbox"), "block");
-initCheckbox("show_js_checkbox", __f_sjs_chkb);
-__f_sjs_chkb();
-
 
 function save_page_data() {
 	if (confirm("Сохранить содержимое страницы?") === false)
 		return;
 	let data = new FormData();
-	data.append('page', decodeURI(document.URL.split('=')[1]));
+	data.append('page', pageNow());
 	data.append('page_name', $("#content_header").value);
 	data.append('data', $("#content_html").value);
 	data.append('css', $("#content_css").value);
@@ -49,20 +41,22 @@ function save_page_data() {
 	})
 		.then((data) => {
 			if ($("#ajax_checkbox").checked)
-				changeSiteContent(getPageData(decodeURI(document.URL.split('=')[1])));
+				changeSiteContent(getPageData(pageNow()));
 			else
 				window.location.reload();
 		})
 }
 
-let v_html = $("#content_html").value
-let v_css = $("#content_css").value
-setInterval(() => {
-	let _v_html = $("#content_html").value
-	let _v_css = $("#content_css").value
-	if ((v_html != _v_html) || (v_css != _v_css)){
-		v_html = _v_html;
-		v_css = _v_css;
-		$("#content_view").innerHTML = `<style>${v_css}</style>` + v_html;;
+setInterval((() => {
+	let value_html = $("#content_html").value
+	let value_css = $("#content_css").value
+	return () => {
+		let new_value_html = $("#content_html").value
+		let new_value_css = $("#content_css").value
+		if ((value_html != new_value_html) || (value_css != new_value_css)){
+			value_html = new_value_html;
+			value_css = new_value_css;
+			$("#content_view").innerHTML = `<style>${value_css}</style>${value_html}`;
+		}
 	}
-}, 60)
+})(), 60)

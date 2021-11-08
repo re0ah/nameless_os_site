@@ -87,7 +87,8 @@ class Sign_up_view(TemplateView):
 
 def redirect_logout(request):
 	logout(request)
-	return HttpResponseRedirect("/")
+	print(request.GET)
+	return HttpResponseRedirect("/?page=" + request.GET["page"])
 
 def check_authorization(request):
 	if request.user.id == None:

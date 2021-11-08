@@ -1,7 +1,7 @@
 function sendBugReport() {
         let data = new FormData();
-        data.append('title', $("#title_bug_report").value);
-        data.append('text', $("#textarea_bug_report").value);
+        data.append('title', document.getElementById("title_bug_report").value);
+        data.append('text', document.getElementById("textarea_bug_report").value);
         data.append('csrfmiddlewaretoken', csrftoken);
         fetch("/get_bug_report/", {
                 method: 'POST',
@@ -17,5 +17,6 @@ function sendBugReport() {
 }
 
 if (checkAuthorization() === false) {
-    $("#notice_bug_report").innerHTML= "Для отправки сообщения о ошибке необходимо быть авторизованным";
+    $("#notice_bug_report").innerHTML = "Для отправки сообщения о ошибке необходимо быть авторизованным";
+    $("#notice_bug_report").style.display = "block";
 }

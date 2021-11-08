@@ -7,11 +7,10 @@
 }
 
 #title_bug_report {
-    border: solid 2px #999;
-    border-bottom: none;
     font-size: 22px;
     padding: 8px;
     text-align: center;
+    border: solid 2px #999;
 }
 
 #textarea_bug_report {
@@ -19,9 +18,12 @@
     min-height: 250px;
     background-color: #444;
     border: solid 2px #999;
+    border-top: none;
     padding: 8px;
     font-size: 20px;
     outline: none;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 #btn_send_bug_report {
@@ -38,6 +40,7 @@
 }
 
 #notice_bug_report {
+    display: none;
     text-align: center;
     margin-top: 15px;
     color: #822;
@@ -52,6 +55,24 @@
 
 @media screen and (max-width: 768px) {
 #wrap_bug_report {
-    width: 95% !important;
+    width: 100% !important;
+    margin-top: 0;
+    align-items: center;
+}
+
+#btn_send_bug_report {
+    border: solid 2px #999;
+    margin-top: 50px;
+}
+
+#textarea_bug_report {
+    border-left: none;
+    border-right: none;
+}
+
+#title_bug_report {
+    border-top: none;
+    border-left: none;
+    border-right: none;
 }
 }

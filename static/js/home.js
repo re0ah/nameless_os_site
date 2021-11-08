@@ -27,4 +27,3 @@ function initCheckbox(checkbox_id, func) {
 }
 
 initCheckbox("ajax_checkbox", () => window.location.reload());
-initCheckbox("cache_checkbox", () => {});

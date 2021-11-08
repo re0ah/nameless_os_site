@@ -115,6 +115,7 @@
 	.content-wrap {
 		margin: 0;
 		max-height: unset !important;
+		height: unset !important;
 	}
 
 	#wrap_content {
