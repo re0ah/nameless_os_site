@@ -39,6 +39,8 @@ class Home_view(TemplateView):
 		except:
 			edit_checkbox = False
 
+		print("edit_checkbox", edit_checkbox);
+
 		page.css.open(mode='r')
 		page_css_text= page.css.read()
 		page.css.close()
@@ -56,7 +58,7 @@ class Home_view(TemplateView):
 				"css_text": page_css_text,
 				"js_url":  page.js.url,
 				"js_text": page_js_text,
-				"content_list": Manage.get_html_content_list_ajax(page),
+				"content_list": Manage.get_html_content_list(page),
 				"is_ajax": ajax_checkbox,
 				"is_edit": edit_checkbox,
 			}
@@ -76,7 +78,7 @@ class Home_view(TemplateView):
 		}
 		print(page.title)
 		if ajax_checkbox:
-			ctx["content_list"] = Manage.get_html_content_list_ajax(page)
+			ctx["content_list"] = Manage.get_html_content_list(page)
 		else:
 			ctx["content_list"] = Manage.get_html_content_list(page)
 		return render(request, self.template_name, ctx)
@@ -120,27 +122,6 @@ class Manage():
 		result_titles = [i.title for i in result]
 		return test(result[len(result)-1])
 
-	def get_html_content_list_ajax(page):
-		html_content_list = ""
-		content_list = Manage.get_page_list(page)
-		for el in content_list:
-			for key, val in el.items():
-				if val["if_selected"]:
-					for i in val["selected"]:
-						key2, val2 = tuple(i.items())[0]
-						if val2["if_selected_master"]:
-							html_content_list += f"<a class=\"box-element box-element-inner selected selected-master\" onclick=\"ajaxUpdatePage('{key2}')\">{val2['title']}</a>"
-						else:
-							html_content_list += f"<a class=\"box-element box-element-inner selected\" onclick=\"ajaxUpdatePage('{key2}')\">{val2['title']}</a>"
-					if val["if_selected_master"]:
-						html_content_list += f"<a class=\"box-element selected selected-master\" onclick=\"ajaxUpdatePage('{key}')\">{val['title']}</a>"
-					else:
-						html_content_list += f"<a class=\"box-element selected\" onclick=\"ajaxUpdatePage('{key}')\">{val['title']}</a>"
-				else:
-					html_content_list += f"<a class=\"box-element\" onclick=\"ajaxUpdatePage('{key}')\">{val['title']}</a>"
-
-		return html_content_list
-
 	def get_html_content_list(page):
 		html_content_list = ""
 		content_list = Manage.get_page_list(page)
@@ -150,15 +131,15 @@ class Manage():
 					for i in val["selected"]:
 						key2, val2 = tuple(i.items())[0]
 						if val2["if_selected_master"]:
-							html_content_list += f"<a class=\"box-element box-element-inner selected selected-master\" href='/?page={key2}'>{val2['title']}</a>"
+							html_content_list += f"<a class=\"box-element box-element-inner selected selected-master\" href='/?page={key2}' onclick=\"ajaxUpdatePage(event)\">{val2['title']}</a>"
 						else:
-							html_content_list += f"<a class=\"box-element box-element-inner selected\" href='/?page={key2}'>{val2['title']}</a>"
+							html_content_list += f"<a class=\"box-element box-element-inner selected\" href='/?page={key2}' onclick=\"ajaxUpdatePage(event)\">{val2['title']}</a>"
 					if val["if_selected_master"]:
-						html_content_list += f"<a class=\"box-element selected selected-master\" href='/?page={key}'>{val['title']}</a>"
+						html_content_list += f"<a class=\"box-element selected selected-master\" href='/?page={key}' onclick=\"ajaxUpdatePage(event)\">{val['title']}</a>"
 					else:
-						html_content_list += f"<a class=\"box-element selected\" href='/?page={key}'>{val['title']}</a>"
+						html_content_list += f"<a class=\"box-element selected\" href='/?page={key}' onclick=\"ajaxUpdatePage(event)\">{val['title']}</a>"
 				else:
-					html_content_list += f"<a class=\"box-element\" href='/?page={key}'>{val['title']}</a>"
+					html_content_list += f"<a class=\"box-element\" href='/?page={key}' onclick=\"ajaxUpdatePage(event)\">{val['title']}</a>"
 
 		return html_content_list
 

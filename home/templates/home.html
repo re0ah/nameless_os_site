@@ -88,11 +88,30 @@
     <script type="text/javascript" src="{% static 'js/home.js' %}"></script>
 	{% if user.is_staff %}
     <script>
-		setCheckboxValue(document.getElementById("edit_checkbox"), (getCookie("edit_checkbox") === "true"));
+		setCheckboxValue($("#edit_checkbox"), (getCookie("edit_checkbox") === "true"));
 
-		document.getElementById("edit_checkbox").onclick = () => {
-			document.cookie = `edit_checkbox=${document.getElementById("edit_checkbox").checked}`;
-			window.location.reload();
+		document.getElementById("edit_checkbox").onclick = async () => {
+			document.cookie = `edit_checkbox=${$("#edit_checkbox").checked}`;
+			document.location.reload();
+
+	/*		let response = await fetch(`/?page=${pageNow()}`);
+			document.documentElement.innerHTML = await response.text();
+
+			if ($("#edit_checkbox").checked) {
+				const initCheckbox2 = (obj_name, checkbox_name, disp) => {
+					const func = () => document.getElementById(obj_name).style.display = document.getElementById(checkbox_name).checked ? disp : "none";
+					initCheckbox(checkbox_name, func);
+					func();
+				}
+
+				initCheckbox2("wrap-content-editor", "show_edit_checkbox", "grid");
+				initCheckbox2("wrap-content-view", "show_result_checkbox", "block");
+				initCheckbox2("wrap_content_html", "show_html_checkbox", "block");
+				initCheckbox2("wrap_content_css", "show_css_checkbox", "block");
+				initCheckbox2("wrap_content_js", "show_js_checkbox", "block");
+				setCheckboxValue($("#edit_checkbox"), (getCookie("edit_checkbox") === "true"));
+			}
+*/
 		}
     </script>
 	{% endif %}

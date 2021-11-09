@@ -47,8 +47,12 @@
 	width: 100%;
 	box-sizing: border-box;
 	min-height: unset;
+	height: calc(100% - 41px);
 }
 
+#content_js, #content_view {
+	height: 100%;
+}
 
 #wrap-content-view, #wrap-content-editor {
 	height: calc(100% - 78px);
@@ -64,6 +68,8 @@
 	color: #CCC;
 	padding: 10px;
 	border-left: none;
+	font-family: "Roboto-mono", monospace;
+	font-size: 15px;
 }
 
 .content-wrap {

@@ -12,6 +12,15 @@
 	initCheckbox2("wrap_content_js", "show_js_checkbox", "block");
 }
 
+const changeEditorHandler = function() {
+	let value_html = $("#content_html").value
+	let value_css = $("#content_css").value
+	$("#content_view").innerHTML = `<style>${value_css}</style>${value_html}`;
+}
+
+$("#content_html").addEventListener("input", changeEditorHandler);
+$("#content_css").addEventListener("input", changeEditorHandler);
+
 function changeSiteContent(data) {
 	$("#content_html").value = data["html"];
 	$("#content_css").value = data["css_text"];
@@ -20,11 +29,10 @@ function changeSiteContent(data) {
 	$("#content_list").innerHTML = data["content_list"];
 	addScript(data["js_url"]);
 	addStyle(data["css_url"]);
+	changeEditorHandler();
 }
 
-initCheckbox("edit_checkbox", () => window.location.reload());
-
-function save_page_data() {
+async function save_page_data() {
 	if (confirm("Сохранить содержимое страницы?") === false)
 		return;
 	let data = new FormData();
@@ -34,29 +42,58 @@ function save_page_data() {
 	data.append('css', $("#content_css").value);
 	data.append('js', $("#content_js").value);
 	data.append('csrfmiddlewaretoken', csrftoken);
-	fetch("/save_page/", {
+	let response = await fetch("/save_page/", {
 		method: 'POST',
 		body: data,
 		credentials: 'same-origin',
 	})
-		.then((data) => {
-			if ($("#ajax_checkbox").checked)
-				changeSiteContent(getPageData(pageNow()));
-			else
-				window.location.reload();
-		})
+	if (await response.status === 200)
+		if ($("#ajax_checkbox").checked)
+			changeSiteContent(await getPageData(pageNow()));
+		else
+			window.location.reload();
 }
 
-setInterval((() => {
-	let value_html = $("#content_html").value
-	let value_css = $("#content_css").value
-	return () => {
-		let new_value_html = $("#content_html").value
-		let new_value_css = $("#content_css").value
-		if ((value_html != new_value_html) || (value_css != new_value_css)){
-			value_html = new_value_html;
-			value_css = new_value_css;
-			$("#content_view").innerHTML = `<style>${value_css}</style>${value_html}`;
+
+/*
+function appendLine(textarea, lines) {
+	function updateLines() {
+		const line_count = textarea.value.split("\n").length;
+		const child_count = lines.children.length;
+		let diff = line_count - child_count;
+		if(diff > 0) {
+			const fragment = document.createDocumentFragment();
+			for (let i = diff; i > 0; i--) {
+				const line_number = document.createElement("span");
+				line_number.className = "tln-line";
+				fragment.appendChild(line_number);
+			}
+			lines.appendChild(fragment);
+		}
+		else {
+			for (let i = diff; i < 0; i++) {
+				lines.removeChild(lines.lastChild);
+			}
 		}
 	}
-})(), 60)
+
+	updateLines(textarea, lines);
+
+	const changeHandler = ((textarea, lines) => () => {
+		updateLines(textarea, lines);
+		console.log("change");
+	})(textarea, lines);
+	textarea.addEventListener("input", changeHandler);
+
+	const scrollHandler = ((textarea, lines) => () => {
+		lines.scrollTop = textarea.scrollTop;
+		console.log("scroll");
+	})(textarea, lines);
+	const scrollEvents = ["change", "mousewheel", "scroll"];
+	[...scrollEvents].forEach((scrollEvent) => {
+		textarea.addEventListener(scrollEvent, scrollHandler);
+	});
+}
+
+appendLine($("#content_html"), $("#TLN_LEFT_HTML"));
+*/

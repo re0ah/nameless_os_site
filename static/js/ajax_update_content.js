@@ -27,8 +27,8 @@ async function checkAuthorization() {
 	return await request.status;
 }
 
-async function getPageData(pageName) {
-	let request = await fetch(`?page=${pageName}&is_ajax=true`);
+async function getPageData(pageId) {
+	let request = await fetch(`?page=${pageId}&is_ajax=true`);
 	return await request.json();
 }
 
@@ -37,13 +37,16 @@ const pageNow = () => {
 	return (url !== "undefined") ? url : 1;
 }
 
-async function ajaxUpdatePage(pageName) {
-	if (pageNow() === pageName)
+async function ajaxUpdatePage(event) {
+	let pageId = event.target.href.split('=')[1]
+	if ((pageNow() === `?page=${pageId}`) || (!$("#ajax_checkbox").checked))
 		return;
 
-	let data = await getPageData(pageName);
+	event.preventDefault();
+
+	let data = await getPageData(pageId);
 	changeSiteContent(data);
-	window.history.pushState(pageName, data["title"], `?page=${pageName}`);
+	window.history.pushState(pageId, data["title"], `?page=${pageId}`);
 }
 
 window.addEventListener('popstate', async (e) => changeSiteContent(await getPageData(e.state ? e.state : "1")));
