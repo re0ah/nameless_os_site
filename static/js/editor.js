@@ -1,3 +1,4 @@
+try {
 {
 	const initCheckbox2 = (obj_name, checkbox_name, disp) => {
 		const func = () => document.getElementById(obj_name).style.display = document.getElementById(checkbox_name).checked ? disp : "none";
@@ -54,13 +55,13 @@ async function save_page_data() {
 			window.location.reload();
 }
 
-function initFontInput(inputId, func) {
+function initFontInput(inputId) {
 	let el = $(`#${inputId}`);
 	el.value = getCookie(inputId);
+	$(`#${el.name}`).style.fontSize = `${el.value}px`;
 	el.addEventListener("input", function () {
 		document.cookie = `${this.id}=${this.value}`;
 		$(`#${this.name}`).style.fontSize = `${this.value}px`;
-		func();
 	})
 }
 initFontInput("html_font_size");
@@ -68,8 +69,12 @@ initFontInput("css_font_size");
 initFontInput("js_font_size");
 
 
-/*
-function appendLine(textarea, lines) {
+}
+catch
+{
+}
+
+function initTextAreaLines(textarea, lines) {
 	function updateLines() {
 		const line_count = textarea.value.split("\n").length;
 		const child_count = lines.children.length;
@@ -78,7 +83,7 @@ function appendLine(textarea, lines) {
 			const fragment = document.createDocumentFragment();
 			for (let i = diff; i > 0; i--) {
 				const line_number = document.createElement("span");
-				line_number.className = "tln-line";
+				line_number.className = "text-area-line";
 				fragment.appendChild(line_number);
 			}
 			lines.appendChild(fragment);
@@ -108,5 +113,49 @@ function appendLine(textarea, lines) {
 	});
 }
 
-appendLine($("#content_html"), $("#TLN_LEFT_HTML"));
-*/
+//initTextAreaLines($("#content_html"), $("#lines_html"));
+//initTextAreaLines($("#content_css"), $("#lines_css"));
+//initTextAreaLines($("#content_js"), $("#lines_js"));
+
+
+function initLines(textarea, lines) {
+	function updateLineNumbers(textarea, lines) {
+		const lineCount = textarea.value.split("\n").length;
+		const childCount = lines.children.length;
+		let diff = lineCount - childCount;
+		if(diff > 0) {
+			const fragment = document.createDocumentFragment();
+			for (let i = diff; i > 0; i--) {
+				const lineNumber = document.createElement("span");
+				lineNumber.className = "tln-line";
+				fragment.appendChild(lineNumber);
+			}
+			lines.appendChild(fragment);
+		}
+		else {
+			for (let i = diff; i < 0; i++) {
+				lines.removeChild(lines.lastChild);
+			}
+		}
+	}
+
+	updateLineNumbers(textarea, lines);
+
+	const changeHandler = ((textarea, lines) => () => {
+		updateLineNumbers(textarea, lines);
+	})(textarea, lines);
+	textarea.addEventListener("input", changeHandler);
+
+	const scrollHandler = ((textarea, lines) => () => {
+		lines.scrollTop = textarea.scrollTop;
+	})(textarea, lines);
+	const scrollEvents = ["change", "mousewheel", "scroll"];
+	[...scrollEvents].forEach((scrollEvent) => {
+		textarea.addEventListener(scrollEvent, scrollHandler);
+	});
+}
+
+console.log(document.getElementById("textarea_1"));
+initLines(document.getElementById("textarea_1"), document.getElementById("TLN_LEFT1"));
+initLines(document.getElementById("textarea_2"), document.getElementById("TLN_LEFT2"));
+initLines(document.getElementById("textarea_3"), document.getElementById("TLN_LEFT3"));

@@ -14,10 +14,10 @@
 	font-weight: 600;
 	text-align: right;
 	cursor: default;
+	height: 47px;
 }
 
 #wrap_content {
-	align-items: flex-start;
 	background-color: #505050;
 	height: calc(100% - 47px);
 }
@@ -35,7 +35,8 @@
 }
 
 #content_list .box-element {
-	height: 40px;
+	min-height: 50px;
+	max-height: 100px;
 	padding: 8px;
 	border: none;
 	border-bottom: solid 2px #999;
@@ -121,9 +122,115 @@
 		min-height: 600px;
 		overflow-y: auto;
 		border-top: solid 2px #999;
-		box-sizing: border-box;
 		border-left: none;
 		width: 100%;
 		font-size: 16px;
 	}
+}
+
+.wrap-text-area {
+	width: 100%;
+	display: flex;
+}
+
+#wrapp_wrapper {
+	display: grid;
+	grid-template-rows: 1fr 1fr 1fr;
+}
+
+.tln-active, .tln-wrapper, .tln-line {
+	box-sizing: border-box;
+	vertical-align: middle;
+	list-style: none;
+}
+.tln-active {
+	display: inline-block;
+	padding: 10px;
+	width: calc(100% - 3em);
+	height: 100%;
+	font-size: 16px;
+	line-height: 1.5;
+	font-family: "Roboto Mono", monospace;
+	word-break: break-all;
+	border: 1px solid #aeaeae;
+	background-color: #fff;
+	resize: none;
+	overflow-wrap: normal;
+	overflow-x: auto;
+	white-space: pre;
+}
+.lines-textarea {
+	padding: 10px 4px 0px 3px;
+	border-right: solid 2px #999;
+	border-top: solid 2px #999;
+	height: 100%;
+	overflow: hidden;
+	display: inline-block;
+	counter-reset: line;
+}
+.text-area-line {
+	width: 100%;
+	display: block;
+	text-align: right;
+	line-height: 1.5;
+	font-size: 16px;
+	color: #aeaeae;
+	font-family: "Roboto Mono", monospace;
+}
+
+.text-area-line::before {
+	counter-increment: line;
+	content: counter(line);
+	font-size: 16px;
+	user-select: none;
+}
+
+#wrapp_wrapper {
+	display: grid;
+	grid-template-rows: 1fr 1fr 1fr;
+}
+
+.tln-active, .tln-wrapper, .tln-line {
+  box-sizing: border-box;
+  vertical-align: middle;
+  list-style: none;
+}
+.tln-active {
+  display: inline-block;
+  padding: 10px;
+  width: calc(100% - 3em);
+  height: 100%;
+  font-size: 16px;
+  line-height: 1.5;
+  font-family: "Roboto Mono", monospace;
+  word-break: break-all;
+  border: 1px solid #aeaeae;
+  background-color: #fff;
+  resize: none;
+  overflow-wrap: normal;
+  overflow-x: auto;
+  white-space: pre;
+}
+.tln-wrapper {
+  width: 48px;
+  padding: 11px 5px 35px;
+  height: 100%;
+  word-break: break-all;
+  overflow: hidden;
+  display: inline-block;
+  counter-reset: line;
+}
+.tln-line {
+  width: 100%;
+  display: block;
+  text-align: right;
+  line-height: 1.5;
+  font-size: 16px;
+  color: #aeaeae;
+}
+.tln-line::before {
+  counter-increment: line;
+  content: counter(line);
+  font-size: 16px;
+  user-select: none;
 }

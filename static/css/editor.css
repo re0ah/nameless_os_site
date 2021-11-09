@@ -19,18 +19,37 @@
 
 #edit_bar {
 	display: flex;
+	height: 38px;
+	background: #333;
 }
 
 #content {
 	color: #FFF;
 }
 
-#edit_bar a, #edit_bar div {
+#edit_bar label {
+	padding: 7px;
+}
+
+#edit_bar a, #edit_bar label {
 	margin: 0;
 	border: none;
 	border-right: solid 2px #999;
 	background: #666;
 	cursor: pointer;
+	transition: 0.2s;
+}
+
+#edit_bar a, #edit_bar label {
+	color: #B6B6B6;
+}
+
+#edit_bar a:hover, #edit_bar label:hover {
+	background: #555;
+}
+
+#edit_bar a:active, #edit_bar label:active {
+	background: #444;
 }
 
 #edit_bar a:active {
@@ -60,15 +79,12 @@
 	border-top: solid 2px #999;
 	border-left: solid 2px #999;
 	width: 100%;
-	box-sizing: border-box;
 	min-height: unset;
-	height: 100%;
+	height: calc(100% - 40px);
 }
 
 #wrap-content-view, #wrap-content-editor {
-	height: calc(100% - 78px);
-	max-height: calc(95vh - 131px);
-	min-height: 535px;
+	height: 100%;
 }
 
 #wrap-content-editor {
@@ -88,10 +104,6 @@
 	min-height: 659px;
 }
 
-#wrap_content {
-	min-height: 613px;
-}
-
 .wrap-content {
 	width: 100%;
 }
@@ -102,7 +114,6 @@
 	display: flex;
 	justify-content: space-between;
 	height: 40px;
-	box-sizing: border-box;
 }
 
 .content-header {
@@ -113,9 +124,8 @@
 }
 
 #wrap_editor {
-	height: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+	height: calc(100% - 38px);
+    display: flex;
 	align-items: flex-start;
 }
 
@@ -129,12 +139,10 @@
 	#edit_panel {
 		width: 100%;
 		border: solid 2px #999;
-		box-sizing: border-box;
 	}
 
 	.content-wrap {
 		width: 100%;
-		box-sizing: border-box;
 	}
 
 	#wrap_editor {
