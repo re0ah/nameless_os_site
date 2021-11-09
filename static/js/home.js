@@ -17,9 +17,9 @@ function setCheckboxValue(checkbox, value) {
 	}
 }
 
-function initCheckbox(checkbox_id, func) {
-	let el = $(`#${checkbox_id}`);
-	setCheckboxValue(el, getCookie(checkbox_id) === "true");
+function initCheckbox(checkboxId, func) {
+	let el = $(`#${checkboxId}`);
+	setCheckboxValue(el, getCookie(checkboxId) === "true");
 	el.addEventListener("click", function () {
 		document.cookie = `${this.id}=${this.checked}`;
 		func();

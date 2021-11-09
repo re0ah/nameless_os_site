@@ -85,22 +85,6 @@
 		width: 500px;
 	}
 
-	.box-element {
-		font-size: 14px;
-	}
-
-	#content_list .box-element {
-		font-size: 16px;
-	}
-
-	#logo a {
-		font-size: 26px;
-	}
-
-	.btn-back {
-		font-size: 25px;
-	}
-
 	.dropdown-content {
 		left: -114px;
 		top: 35px;

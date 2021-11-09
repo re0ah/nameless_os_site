@@ -54,6 +54,19 @@ async function save_page_data() {
 			window.location.reload();
 }
 
+function initFontInput(inputId, func) {
+	let el = $(`#${inputId}`);
+	el.value = getCookie(inputId);
+	el.addEventListener("input", function () {
+		document.cookie = `${this.id}=${this.value}`;
+		$(`#${this.name}`).style.fontSize = `${this.value}px`;
+		func();
+	})
+}
+initFontInput("html_font_size");
+initFontInput("css_font_size");
+initFontInput("js_font_size");
+
 
 /*
 function appendLine(textarea, lines) {
