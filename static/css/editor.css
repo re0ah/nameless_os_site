@@ -3,6 +3,7 @@
 	border: none;
 	border-left: solid 2px #999;
 	padding: 6px;
+	text-align: center;
 }
 
 .input-num:hover {
@@ -29,6 +30,11 @@
 
 #edit_bar label {
 	padding: 7px;
+}
+
+#edit_bar label input {
+	width: 14px;
+	cursor: pointer;
 }
 
 #edit_bar a, #edit_bar label {
@@ -181,7 +187,7 @@
 }
 
 .lines-textarea {
-	padding: 10px 4px 0px 3px;
+	padding: 10px 4px 10px 3px;
 	border-right: solid 2px #999;
 	border-top: solid 2px #999;
 	height: 100%;

@@ -31,7 +31,6 @@
 	background-color: #505050;
 	font-size: 14px;
 	overflow-y: auto;
-	scrollbar-width: 1px;
 }
 
 #content_list .box-element {
@@ -57,6 +56,16 @@
 	scrollbar-width: thin;
 	font-size: 18px;
 	border-left: solid 2px #999;
+	resize: none;
+}
+
+.content-text::-webkit-scrollbar {
+	width: 4px;
+    background: #444;
+}
+
+.content-text::-webkit-scrollbar-thumb {
+    background: #C0C0C0;
 }
 
 .content-text p {

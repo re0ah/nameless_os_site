@@ -111,7 +111,7 @@
     <script type="text/javascript" src="{% static 'js/home.js' %}"></script>
 	{% if user.is_staff %}
     <script>
-		setCheckboxValue($("#edit_checkbox"), (getCookie("edit_checkbox") === "true"));
+		setCheckboxValue($("#edit_checkbox"), getCookie("edit_checkbox"));
 
 		document.getElementById("edit_checkbox").onclick = async () => {
 			document.cookie = `edit_checkbox=${$("#edit_checkbox").checked}`;

@@ -10,8 +10,13 @@ function getCookie(name) {
 }
 
 function setCheckboxValue(checkbox, value) {
-	if (value === null)
-		return
+	if (value === null) {
+		value = true;
+		document.cookie = `${checkbox.id}=true`;
+	}
+	else {
+		value = value == "true";
+	}
 	if (checkbox.checked != value) {
 		checkbox.click();
 	}
@@ -19,7 +24,7 @@ function setCheckboxValue(checkbox, value) {
 
 function initCheckbox(checkboxId, func) {
 	let el = $(`#${checkboxId}`);
-	setCheckboxValue(el, getCookie(checkboxId) === "true");
+	setCheckboxValue(el, getCookie(checkboxId));
 	el.addEventListener("click", function () {
 		document.cookie = `${this.id}=${this.checked}`;
 		func();

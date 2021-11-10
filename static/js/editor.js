@@ -12,17 +12,56 @@
 	initCheckbox2("wrap_content_js", "show_js_checkbox", "block");
 }
 
+const updateLines = (textarea, lines) => () => {
+	const diff = textarea.value.split("\n").length - lines.children.length;
+	if(diff > 0) {
+		const fragment = document.createDocumentFragment();
+		for (let i = diff; i > 0; i--) {
+			const line = document.createElement("span");
+			line.className = `text-area-line ${textarea.name}`;
+			fragment.appendChild(line);
+		}
+		lines.appendChild(fragment);
+	}
+	else {
+		for (let i = diff; i < 0; i++) {
+			lines.removeChild(lines.lastChild);
+		}
+	}
+};
+
+function initTextAreaLines(textarea, lines, updateLinesCallback) {
+	updateLinesCallback();
+
+	textarea.addEventListener("input", updateLinesCallback());
+
+	const scrollHandler = ((textarea, lines) => () => {
+		lines.scrollTop = textarea.scrollTop;
+	})(textarea, lines);
+	const scrollEvents = ["change", "mousewheel", "scroll"];
+	[...scrollEvents].forEach((scrollEvent) => {
+		textarea.addEventListener(scrollEvent, scrollHandler);
+	});
+}
+
+const updateLinesHtml = updateLines($("#content_html"), $("#lines_html"));
+const updateLinesCss = updateLines($("#content_css"), $("#lines_css"));
+const updateLinesJs = updateLines($("#content_js"), $("#lines_js"));
+initTextAreaLines($("#content_html"), $("#lines_html"), updateLinesHtml);
+initTextAreaLines($("#content_css"), $("#lines_css"), updateLinesCss);
+initTextAreaLines($("#content_js"), $("#lines_js"), updateLinesJs);
+
 const changeEditorHandler = function() {
 	let value_html = $("#content_html").value
 	let value_css = $("#content_css").value
 	$("#content_view").innerHTML = `<style>${value_css}</style>${value_html}`;
 	($("#content_html"), $("#lines_html"));
-	updateLines($("#content_css"), $("#lines_css"));
-	updateLines($("#content_js"), $("#lines_js"));
+	updateLinesHtml();
+	updateLinesCss();
 }
-
 $("#content_html").addEventListener("input", changeEditorHandler);
 $("#content_css").addEventListener("input", changeEditorHandler);
+$("#content_js").addEventListener("input", updateLinesJs);
 
 function changeSiteContent(data) {
 	$("#content_html").value = data["html"];
@@ -45,7 +84,7 @@ async function save_page_data() {
 	data.append('css', $("#content_css").value);
 	data.append('js', $("#content_js").value);
 	data.append('csrfmiddlewaretoken', csrftoken);
-	let response = await fetch("/save_page/", {
+	const response = await fetch("/save_page/", {
 		method: 'POST',
 		body: data,
 		credentials: 'same-origin',
@@ -57,58 +96,25 @@ async function save_page_data() {
 			window.location.reload();
 }
 
+function initFontSizeTextarea(textarea, lines, size) {
+	textarea.style.fontSize = size;
+	document.documentElement.style.setProperty(lines, size); // lines textarea
+}
+
 function initFontInput(inputId) {
-	let el = $(`#${inputId}`);
-	el.value = getCookie(inputId);
-	$(`#${el.name}`).style.fontSize = `${el.value}px`;
-	document.documentElement.style.setProperty(el.lang, `${el.value}px`);
-	el.addEventListener("input", function () {
+	const el = $(`#${inputId}`);
+	let fontSize = getCookie(inputId) 
+	el.value = (fontSize === null) ? "16" : fontSize;
+
+	const fontInput = function() {
 		document.cookie = `${this.id}=${this.value}`;
-		$(`#${this.name}`).style.fontSize = `${this.value}px`;
-		document.documentElement.style.setProperty(this.lang, `${this.value}px`);
-	})
+		initFontSizeTextarea($(`#${this.name}`), this.lang, `${this.value}px`);
+	}
+	fontInput.call(el);
+
+	el.addEventListener("input", fontInput);
+	el.addEventListener("mousewheel", (e) => {});
 }
 initFontInput("html_font_size");
 initFontInput("css_font_size");
 initFontInput("js_font_size");
-
-function updateLines(textarea, lines) {
-	const line_count = textarea.value.split("\n").length;
-	const child_count = lines.children.length;
-	let diff = line_count - child_count;
-	if(diff > 0) {
-		const fragment = document.createDocumentFragment();
-		for (let i = diff; i > 0; i--) {
-			const line_number = document.createElement("span");
-			line_number.className = `text-area-line ${textarea.name}`;
-			fragment.appendChild(line_number);
-		}
-		lines.appendChild(fragment);
-	}
-	else {
-		for (let i = diff; i < 0; i++) {
-			lines.removeChild(lines.lastChild);
-		}
-	}
-}
-
-function initTextAreaLines(textarea, lines) {
-	updateLines(textarea, lines);
-
-	const changeHandler = ((textarea, lines) => () => {
-		updateLines(textarea, lines);
-	})(textarea, lines);
-	textarea.addEventListener("input", changeHandler);
-
-	const scrollHandler = ((textarea, lines) => () => {
-		lines.scrollTop = textarea.scrollTop;
-	})(textarea, lines);
-	const scrollEvents = ["change", "mousewheel", "scroll"];
-	[...scrollEvents].forEach((scrollEvent) => {
-		textarea.addEventListener(scrollEvent, scrollHandler);
-	});
-}
-
-initTextAreaLines($("#content_html"), $("#lines_html"));
-initTextAreaLines($("#content_css"), $("#lines_css"));
-initTextAreaLines($("#content_js"), $("#lines_js"));
