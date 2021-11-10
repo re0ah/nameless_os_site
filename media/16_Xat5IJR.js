@@ -1,4 +1,4 @@
-function sendTaskOffer() {
+$("#btn_send_task_offer").onclick = function() {
         let data = new FormData();
         data.append('title', $("#title_task_offer").value);
         data.append('text', $("#textarea_task_offer").value);

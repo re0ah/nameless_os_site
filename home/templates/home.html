@@ -1,3 +1,4 @@
+{% spaceless %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -6,7 +7,6 @@
 		{% load static %}
 		<link rel="stylesheet" href="{% static 'css/main.css' %}">
 		<link rel="stylesheet" href="{% static 'css/home.css' %}">
-		<link id="load_css" rel="stylesheet" href="{{ css_url }}">
 		<link rel="stylesheet" href="{% static 'css/home.css' %}">
 		{% if user.is_staff and is_edit %}
 			<link rel="stylesheet" href="{% static 'css/editor.css' %}">
@@ -61,7 +61,7 @@
 							<div class="wrap-lines-textarea">
 								<div id="lines_html" class="lines-textarea">
 								</div>
-								<textarea type="text" id="content_html" class="content-text" name="text-area-line-html" >{{ html }}</textarea>
+								<textarea type="text" id="content_html" class="content-text" name="text-area-line-html" ></textarea>
 							</div>
 						</div>
 						<div id="wrap_content_css" class="wrap-content2">
@@ -72,7 +72,7 @@
 							<div class="wrap-lines-textarea">
 								<div id="lines_css" class="lines-textarea">
 								</div>
-								<textarea type="text" id="content_css" class="content-text" name="text-area-line-css" >{{ css_text }}</textarea>
+								<textarea type="text" id="content_css" class="content-text" name="text-area-line-css" ></textarea>
 							</div>
 						</div>
 						<div id="wrap_content_js" class="wrap-content2">
@@ -83,7 +83,7 @@
 							<div class="wrap-lines-textarea">
 								<div id="lines_js" class="lines-textarea">
 								</div>
-							<textarea type="text" id="content_js" class="content-text" name="text-area-line-js">{{ js_text }}</textarea>
+							<textarea type="text" id="content_js" class="content-text" name="text-area-line-js"></textarea>
 							</div>
 						</div>
 					</div>
@@ -91,27 +91,23 @@
 						<div class="wrap-content-header" style="border-left: solid 2px #999;">
 							<h2 class="content-header">Результат</h2>
 						</div>
-						<div id="content_view" class="content-text">{{ html | safe}}</div>
+						<div id="content_view" class="content-text"></div>
 					</div>
 				</div>
 			</div>
 			{% else %}
 				<div id="content" class="content-text">
-		 			{{ html | safe}}
 				</div>
 			{% endif %}
 		</div>
 	</div>
     </body>
-	{% csrf_token %}
-    <script>
-		const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-	</script>
     <script type="text/javascript" src="{% static 'js/ajax_update_content.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/home.js' %}"></script>
 	{% if user.is_staff %}
     <script>
 		setCheckboxValue($("#edit_checkbox"), getCookie("edit_checkbox"));
+		const csrftoken = getCookie("csrftoken");
 
 		document.getElementById("edit_checkbox").onclick = async () => {
 			document.cookie = `edit_checkbox=${$("#edit_checkbox").checked}`;
@@ -142,5 +138,5 @@
 	{% if user.is_staff and is_edit %}
     	<script type="text/javascript" src="{% static 'js/editor.js' %}"></script>
 	{% endif %}
-    <script id="load_js" type="text/javascript" src="{{ js_url }}"></script>
 </html>
+{% endspaceless %}

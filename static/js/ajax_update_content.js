@@ -15,11 +15,10 @@ const addScript = (() => {
 const addStyle = (src) => $("#load_css").href = src;
 
 function changeSiteContent(data) {
-	$("#content").innerHTML = data["html"];
+	$("#content").innerHTML = `<style>${data["css_text"]}</style>` + data["html"];
 	$("#content_header").innerHTML = document.title = data["title"];
 	$("#content_list").innerHTML = data["content_list"];
-	addScript(data["js_url"]);
-	addStyle(data["css_url"]);
+	eval(data["js_text"]);
 }
 
 async function checkAuthorization() {
@@ -49,18 +48,6 @@ async function getJson(url, storageKey) {
 async function getPageData(pageId) {
 	json = await getJson(`?page=${pageId}&is_ajax=true`, `md5_${pageId}`);
 	return json;
-	/*
-	const request_md5 = await fetch(`?page=${pageId}&is_ajax=true&get_hash=true`);
-	const md5 = (await request_md5.json())["md5"];
-	const storageKey = `md5_${pageId}`;
-	let storageValue = JSON.parse(sessionStorage.getItem(storageKey));
-	if ((storageValue === null) || (storageValue["md5"] !== md5)) {
-		const request = await fetch(`?page=${pageId}&is_ajax=true`);
-		storageValue = {"md5": md5, "json": await request.json()};
-		sessionStorage.setItem(storageKey, JSON.stringify(storageValue));
-	}
-	return storageValue["json"];
-	*/
 }
 
 const pageNow = () => {
@@ -69,7 +56,7 @@ const pageNow = () => {
 }
 
 async function ajaxUpdatePage(event) {
-	let pageId = event.target.href.split('=')[1]
+	let pageId = event.target.href.split('=')[1];
 	if ((pageNow() === `?page=${pageId}`) || (!$("#ajax_checkbox").checked))
 		return;
 
@@ -86,3 +73,8 @@ async function logout() {
 	let request = await fetch(`/logout/?page=${pageNow()}`);
 	window.location.reload();
 }
+
+(async () => {
+	let data = await getPageData(pageNow());
+	changeSiteContent(data);
+})()

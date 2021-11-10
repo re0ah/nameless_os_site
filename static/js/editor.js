@@ -71,12 +71,11 @@ function changeSiteContent(data) {
 	$("#content_js").value = data["js_text"];
 	$("#content_header").value = document.title = data["title"];
 	$("#content_list").innerHTML = data["content_list"];
-	addScript(data["js_url"]);
-	addStyle(data["css_url"]);
 	updateLinesHtml();
 	updateLinesCss();
 	updateLinesJs();
 	changeEditorHandler();
+	eval(data["js_text"]);
 }
 
 async function save_page_data() {

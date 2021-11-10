@@ -1,4 +1,4 @@
-function sendBugReport() {
+$("#btn_send_bug_report").onclick = function() {
         let data = new FormData();
         data.append('title', $("#title_bug_report").value);
         data.append('text', $("#textarea_bug_report").value);
