@@ -11,6 +11,8 @@ from django.contrib.auth.models import User
 import urllib
 
 import os
+import json
+import hashlib
 from page.models import Page
 
 class Home_view(TemplateView):
@@ -59,10 +61,11 @@ class Home_view(TemplateView):
 				"js_url":  page.js.url,
 				"js_text": page_js_text,
 				"content_list": Manage.get_html_content_list(page),
-				"is_ajax": ajax_checkbox,
-				"is_edit": edit_checkbox,
 			}
-			return JsonResponse(result)
+			if "get_hash" in request.GET:
+				return JsonResponse({"md5": hashlib.md5(json.dumps(result).encode('utf-8')).hexdigest()})
+			else:
+				return JsonResponse(result)
 		
 		ctx = {
 			"title": page.title,

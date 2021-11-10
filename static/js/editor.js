@@ -56,11 +56,13 @@ const changeEditorHandler = function() {
 	let value_css = $("#content_css").value
 	$("#content_view").innerHTML = `<style>${value_css}</style>${value_html}`;
 	($("#content_html"), $("#lines_html"));
-	updateLinesHtml();
-	updateLinesCss();
 }
 $("#content_html").addEventListener("input", changeEditorHandler);
+$("#content_html").addEventListener("input", updateLinesHtml);
+
 $("#content_css").addEventListener("input", changeEditorHandler);
+$("#content_css").addEventListener("input", updateLinesCss);
+
 $("#content_js").addEventListener("input", updateLinesJs);
 
 function changeSiteContent(data) {
@@ -71,6 +73,9 @@ function changeSiteContent(data) {
 	$("#content_list").innerHTML = data["content_list"];
 	addScript(data["js_url"]);
 	addStyle(data["css_url"]);
+	updateLinesHtml();
+	updateLinesCss();
+	updateLinesJs();
 	changeEditorHandler();
 }
 
@@ -113,7 +118,7 @@ function initFontInput(inputId) {
 	fontInput.call(el);
 
 	el.addEventListener("input", fontInput);
-	el.addEventListener("mousewheel", (e) => {});
+	el.addEventListener("mousewheel", (e) => {console.log(e)});
 }
 initFontInput("html_font_size");
 initFontInput("css_font_size");

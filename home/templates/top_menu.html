@@ -1,9 +1,5 @@
 <div class="top-menu">
-	{% if is_ajax %}
-		<a id="logo" class="box-element" onclick="ajaxUpdatePage('1')">nameless_os</a>
-	{% else %}
-		<a id="logo" class="box-element" href='/?page=1'>nameless_os</a>
-	{% endif %}
+	<a id="logo" class="box-element" href="/?page=1" onclick="ajaxUpdatePage(event)">nameless_os</a>
 	<div class="box">
 		<div class="dropdown">
 			<a class="box-element">Настройки</a>

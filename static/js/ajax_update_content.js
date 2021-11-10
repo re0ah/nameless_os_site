@@ -23,13 +23,21 @@ function changeSiteContent(data) {
 }
 
 async function checkAuthorization() {
-	let request = await fetch("/check_authorization/");
+	const request = await fetch("/check_authorization/");
 	return await request.status;
 }
 
 async function getPageData(pageId) {
-	let request = await fetch(`?page=${pageId}&is_ajax=true`);
-	return await request.json();
+	const request_md5 = await fetch(`?page=${pageId}&is_ajax=true&get_hash=true`);
+	const md5 = (await request_md5.json())["md5"];
+	const storageKey = `md5_${pageId}`;
+	let storageValue = JSON.parse(sessionStorage.getItem(storageKey));
+	if ((storageValue === null) || (storageValue["md5"] !== md5)) {
+		const request = await fetch(`?page=${pageId}&is_ajax=true`);
+		storageValue = {"md5": md5, "json": await request.json()};
+		sessionStorage.setItem(storageKey, JSON.stringify(storageValue));
+	}
+	return storageValue["json"];
 }
 
 const pageNow = () => {
