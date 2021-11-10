@@ -53,26 +53,38 @@
 				</div>
 				<div id="wrap_editor" class="flex-row-sb">
 					<div id="wrap-content-editor" class="wrap-content">
-						<div id="wrap_content_html">
+						<div id="wrap_content_html" class="wrap-content2">
 							<div class="wrap-content-header">
 								<h2 class="content-header">HTML</h2>
-								<input id="html_font_size" class="input-num" name="content_html" min="0" type="number" value="15">
+								<input id="html_font_size" class="input-num" lang="--text-area-font-size-html" name="content_html" min="0" type="number" value="15">
 							</div>
-							<textarea type="text" id="content_html" class="content-text">{{ html }}</textarea>
+							<div class="wrap-lines-textarea">
+								<div id="lines_html" class="lines-textarea">
+								</div>
+								<textarea type="text" id="content_html" class="content-text" name="text-area-line-html" >{{ html }}</textarea>
+							</div>
 						</div>
-						<div id="wrap_content_css">
+						<div id="wrap_content_css" class="wrap-content2">
 							<div class="wrap-content-header">
 								<h2 class="content-header">CSS</h2>
-								<input id="css_font_size" class="input-num" name="content_css" min="0" type="number" value="15">
+								<input id="css_font_size" class="input-num" lang="--text-area-font-size-css" name="content_css" min="0" type="number" value="15">
 							</div>
-							<textarea type="text" id="content_css" class="content-text">{{ css_text }}</textarea>
+							<div class="wrap-lines-textarea">
+								<div id="lines_css" class="lines-textarea">
+								</div>
+								<textarea type="text" id="content_css" class="content-text" name="text-area-line-css" >{{ css_text }}</textarea>
+							</div>
 						</div>
-						<div id="wrap_content_js">
+						<div id="wrap_content_js" class="wrap-content2">
 							<div class="wrap-content-header">
 								<h2 class="content-header">JS</h2>
-								<input id="js_font_size" class="input-num" name="content_js" min="0" type="number" value="15">
+								<input id="js_font_size" class="input-num" lang="--text-area-font-size-js" name="content_js" min="0" type="number" value="15">
 							</div>
-							<textarea type="text" id="content_js" class="content-text">{{ js_text }}</textarea>
+							<div class="wrap-lines-textarea">
+								<div id="lines_js" class="lines-textarea">
+								</div>
+							<textarea type="text" id="content_js" class="content-text" name="text-area-line-js">{{ js_text }}</textarea>
+							</div>
 						</div>
 					</div>
 					<div id="wrap-content-view" class="wrap-content">

@@ -73,6 +73,10 @@
 	height: 100%;
 }
 
+#content_html, #content_css, #content_js {
+	line-height: 1.5;
+}
+
 .content-text {
 	outline: 0;
 	border: none;
@@ -80,11 +84,15 @@
 	border-left: solid 2px #999;
 	width: 100%;
 	min-height: unset;
-	height: calc(100% - 40px);
+	height: 100%;
 }
 
 #wrap-content-view, #wrap-content-editor {
 	height: 100%;
+}
+
+#content_view {
+	height: calc(100% - 40px);
 }
 
 #wrap-content-editor {
@@ -106,6 +114,15 @@
 
 .wrap-content {
 	width: 100%;
+}
+
+.wrap-content2 {
+	min-height: 0;
+}
+
+.wrap-lines-textarea {
+	display: flex;
+	height: calc(100% - 40px);
 }
 
 .wrap-content-header {
@@ -161,4 +178,53 @@
 	.wrap-content-header {
 		border-left: none;
 	}
+}
+
+.lines-textarea {
+	padding: 10px 4px 0px 3px;
+	border-right: solid 2px #999;
+	border-top: solid 2px #999;
+	height: 100%;
+	line-height: 1.5;
+	overflow: hidden;
+	display: inline-block;
+	counter-reset: line;
+}
+
+.text-area-line {
+	display: block;
+	font-size: 16px;
+	color: #aeaeae;
+	text-align: right;
+	font-family: "Roboto Mono", monospace;
+}
+
+:root {
+	--text-area-font-size-html: 16px;
+	--text-area-font-size-css: 16px;
+	--text-area-font-size-js: 16px;
+	--text-area-line-height-html: 24px;
+	--text-area-line-height-css: 24px;
+	--text-area-line-height-js: 24px;
+}
+
+.text-area-line::before {
+	counter-increment: line;
+	content: counter(line);
+	user-select: none;
+}
+
+.text-area-line-html::before {
+	font-size: var(--text-area-font-size-html);
+/*	line-height: var(--text-area-font-size-html);*/
+}
+
+.text-area-line-css::before {
+	font-size: var(--text-area-font-size-css);
+/*	line-height: var(--text-area-font-size-css);*/
+}
+
+.text-area-line-js::before {
+	font-size: var(--text-area-font-size-js);
+/*	line-height: var(--text-area-font-size-js);*/
 }
