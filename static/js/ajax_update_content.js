@@ -27,7 +27,29 @@ async function checkAuthorization() {
 	return await request.status;
 }
 
+async function getJson(url, storageKey) {
+	let urlGetHash;
+	if (url.split('?').length == 1) {
+		urlGetHash = `${url}?get_hash=true`;
+	}
+	else {
+		urlGetHash = `${url}&get_hash=true`;
+	}
+	const requestMd5 = await fetch(urlGetHash);
+	const md5 = (await requestMd5.json())["md5"];
+	let storageValue = JSON.parse(sessionStorage.getItem(storageKey));
+	if ((storageValue === null) || (storageValue["md5"] !== md5)) {
+		const request = await fetch(url);
+		storageValue = {"md5": md5, "json": await request.json()};
+		sessionStorage.setItem(storageKey, JSON.stringify(storageValue));
+	}
+	return storageValue["json"];
+}
+
 async function getPageData(pageId) {
+	json = await getJson(`?page=${pageId}&is_ajax=true`, `md5_${pageId}`);
+	return json;
+	/*
 	const request_md5 = await fetch(`?page=${pageId}&is_ajax=true&get_hash=true`);
 	const md5 = (await request_md5.json())["md5"];
 	const storageKey = `md5_${pageId}`;
@@ -38,6 +60,7 @@ async function getPageData(pageId) {
 		sessionStorage.setItem(storageKey, JSON.stringify(storageValue));
 	}
 	return storageValue["json"];
+	*/
 }
 
 const pageNow = () => {

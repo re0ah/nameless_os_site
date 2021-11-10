@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .models import Task, Task_type
 import datetime
 from django.http import HttpResponse, JsonResponse
+import json
+import hashlib
 
 class Manage_task_tracker():
 	def get_task_offer(request):
@@ -56,7 +58,11 @@ class Manage_task_tracker():
 			elif i.task_type.id == 3:  # В процессе
 				result += Manage_task_tracker.create_html_node(*args)
 
-		return JsonResponse({"task_list": result})
+		ret = {"task_list": result}
+		if "get_hash" in request.GET:
+			return JsonResponse({"md5": hashlib.md5(json.dumps(ret).encode('utf-8')).hexdigest()})
+		else:
+			return JsonResponse(ret)
 
 	def get_task_list_solved(request):
 		result = ""
@@ -65,7 +71,11 @@ class Manage_task_tracker():
 			if i.task_type.id == 2:  # Решено
 				result += Manage_task_tracker.create_html_node(*args)
 
-		return JsonResponse({"task_list": result})
+		ret = {"task_list": result}
+		if "get_hash" in request.GET:
+			return JsonResponse({"md5": hashlib.md5(json.dumps(ret).encode('utf-8')).hexdigest()})
+		else:
+			return JsonResponse(ret)
 
 	def get_task_list_deffered(request):
 		result = ""
@@ -76,4 +86,8 @@ class Manage_task_tracker():
 			elif i.task_type.id == 4:  # Отклонено
 				result += Manage_task_tracker.create_html_node(*args)
 
-		return JsonResponse({"task_list": result})
+		ret = {"task_list": result}
+		if "get_hash" in request.GET:
+			return JsonResponse({"md5": hashlib.md5(json.dumps(ret).encode('utf-8')).hexdigest()})
+		else:
+			return JsonResponse(ret)

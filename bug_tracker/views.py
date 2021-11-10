@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .models import Bug, Bug_type
 import datetime
 from django.http import HttpResponse, JsonResponse
+import json
+import hashlib
 
 class Manage_bug_tracker():
 	def get_bug_report(request):
@@ -58,7 +60,13 @@ class Manage_bug_tracker():
 			elif i.bug_type.id == 4:  # Отклонено
 				result += Manage_bug_tracker.create_html_node(*args)
 
-		return JsonResponse({"bug_list": result})
+		ret = {"bug_list": result}
+		if "get_hash" in request.GET:
+			print("BLYAD", request.GET);
+			print("return is", {"md5": hashlib.md5(json.dumps(ret).encode('utf-8')).hexdigest()})
+			return JsonResponse({"md5": hashlib.md5(json.dumps(ret).encode('utf-8')).hexdigest()})
+		else:
+			return JsonResponse(ret)
 
 	def get_bug_list_solved(request):
 		result = ""
@@ -67,4 +75,8 @@ class Manage_bug_tracker():
 			if i.bug_type.id == 2:  # Исправлено
 				result += Manage_bug_tracker.create_html_node(*args)
 
-		return JsonResponse({"bug_list": result})
+		ret = {"bug_list": result}
+		if "get_hash" in request.GET:
+			return JsonResponse({"md5": hashlib.md5(json.dumps(ret).encode('utf-8')).hexdigest()})
+		else:
+			return JsonResponse(ret)

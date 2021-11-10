@@ -1,7 +1,7 @@
 function sendBugReport() {
         let data = new FormData();
-        data.append('title', document.getElementById("title_bug_report").value);
-        data.append('text', document.getElementById("textarea_bug_report").value);
+        data.append('title', $("#title_bug_report").value);
+        data.append('text', $("#textarea_bug_report").value);
         data.append('csrfmiddlewaretoken', csrftoken);
         fetch("/get_bug_report/", {
                 method: 'POST',
