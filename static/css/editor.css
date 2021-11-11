@@ -215,6 +215,7 @@
 }
 
 .text-area-line::before {
+	display: block;
 	counter-increment: line;
 	content: counter(line);
 	user-select: none;

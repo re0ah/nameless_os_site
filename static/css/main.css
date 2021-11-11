@@ -136,7 +136,7 @@ body {
 	z-index: 1;
 	border: solid 2px #999;
 	width: 200px;
-	left: -104px;
+	left: -101px;
 	top: 38px;
 	cursor: pointer;
 }
@@ -145,21 +145,19 @@ body {
 	border: none !important;
 }
 
-.dropdown-content .flex-row-sb {
+.dropdown-content label {
+	display: flex;
 	border-bottom: solid 2px #999;
 	padding: 5px;
 	transition: 0.2s;
-}
-
-.dropdown-content label {
 	cursor: pointer;
 }
 
-.dropdown-content .flex-row-sb:hover {
+.dropdown-content label:hover {
 	background-color: #444;
 }
 
-.dropdown-content .flex-row-sb:active {
+.dropdown-content label:active {
 	background-color: #333;
 	color: #BBB;
 }

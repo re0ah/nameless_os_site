@@ -55,7 +55,8 @@ const changeEditorHandler = function() {
 	let value_html = $("#content_html").value
 	let value_css = $("#content_css").value
 	$("#content_view").innerHTML = `<style>${value_css}</style>${value_html}`;
-	($("#content_html"), $("#lines_html"));
+	$("#content_html"), $("#lines_html");
+	eval($("#content_js").value);
 }
 $("#content_html").addEventListener("input", changeEditorHandler);
 $("#content_html").addEventListener("input", updateLinesHtml);
