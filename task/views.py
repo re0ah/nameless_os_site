@@ -52,7 +52,12 @@ class Manage_task_tracker():
 	def get_task_list_current(request):
 		result = ""
 		for i in Task.objects.all():
-			args = (i.title, i.content, i.author.username, i.task_type.title, i.date_create)
+			args = (i.title,
+				    i.content,
+					i.author.username,
+					i.task_type.title,
+					i.date_create.strftime("%m/%d/%Y, %H:%M:%S")
+			)
 			if i.task_type.id == 1:  # На рассмотрении
 				result += Manage_task_tracker.create_html_node(*args)
 			elif i.task_type.id == 3:  # В процессе
@@ -67,7 +72,12 @@ class Manage_task_tracker():
 	def get_task_list_solved(request):
 		result = ""
 		for i in Task.objects.all():
-			args = (i.title, i.content, i.author.username, i.task_type.title, i.date_create)
+			args = (i.title,
+				    i.content,
+					i.author.username,
+					i.task_type.title,
+					i.date_create.strftime("%m/%d/%Y, %H:%M:%S")
+			)
 			if i.task_type.id == 2:  # Решено
 				result += Manage_task_tracker.create_html_node(*args)
 
@@ -80,7 +90,12 @@ class Manage_task_tracker():
 	def get_task_list_deffered(request):
 		result = ""
 		for i in Task.objects.all():
-			args = (i.title, i.content, i.author.username, i.task_type.title, i.date_create)
+			args = (i.title,
+				    i.content,
+					i.author.username,
+					i.task_type.title,
+					i.date_create.strftime("%m/%d/%Y, %H:%M:%S")
+			)
 			if i.task_type.id == 5:  # Отложено
 				result += Manage_task_tracker.create_html_node(*args)
 			elif i.task_type.id == 4:  # Отклонено

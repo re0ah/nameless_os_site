@@ -52,7 +52,12 @@ class Manage_bug_tracker():
 	def get_bug_list_current(request):
 		result = ""
 		for i in Bug.objects.all():
-			args = (i.title, i.content, i.author.username, i.bug_type.title, i.date_create)
+			args = (i.title,
+				    i.content,
+					i.author.username,
+					i.bug_type.title,
+					i.date_create.strftime("%m/%d/%Y, %H:%M:%S")
+			)
 			if i.bug_type.id == 1:  # На рассмотрении
 				result += Manage_bug_tracker.create_html_node(*args)
 			elif i.bug_type.id == 3:  # В процессе
@@ -71,7 +76,12 @@ class Manage_bug_tracker():
 	def get_bug_list_solved(request):
 		result = ""
 		for i in Bug.objects.all():
-			args = (i.title, i.content, i.author.username, i.bug_type.title, i.date_create)
+			args = (i.title,
+				    i.content,
+					i.author.username,
+					i.bug_type.title,
+					i.date_create.strftime("%m/%d/%Y, %H:%M:%S")
+			)
 			if i.bug_type.id == 2:  # Исправлено
 				result += Manage_bug_tracker.create_html_node(*args)
 

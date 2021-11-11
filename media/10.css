@@ -1,4 +1,4 @@
-.wrap-task-title-state, .task-text, .task-info-bar, .task-open-comments {
+.wrap-task-title-state, .task-text, .task-info-bar {
     border: solid 2px #999;
 }
 
@@ -38,12 +38,30 @@
     background: #333;
 }
 
+.task-data-solved {
+    border-right: solid 2px #999;
+}
+
+.wrap-btn-comment-solved {
+    border-bottom: solid 2px #999;
+    border-left: solid 2px #999;
+    background: #333;
+}
+
 .task-open-comments {
-    border-top: none;
-    width: 208px;
+    display: none;
+}
+
+.task-open-comments-label {
+    border-left: solid 2px #999;
+    border-right: solid 2px #999;
     cursor: pointer;
     background: #555;
     transition: 0.2s;
+    border-bottom: solid 2px #999;
+    padding: 10px;
+    text-align: center;
+    display: block;
 }
 
 .task-open-comments:hover {
@@ -54,6 +72,22 @@
     background: #333;
 }
 
+.task-open-comments:checked + label::before {
+    content: "Показать комментарии";
+}
+
+.task-open-comments:not(:checked) + label::before {
+    content: "Скрыть комментарии";
+}
+
+.task-open-comments:checked + label + div {
+    display: none;
+}
+
 .task-space-between {
     border-top: solid 2px #999;
+}
+
+.task-comments {
+    padding: 0;
 }

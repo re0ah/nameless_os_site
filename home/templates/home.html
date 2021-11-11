@@ -3,10 +3,9 @@
 <html>
     <head>
 		<meta charset="utf-8">
-		<title>{{ title }}</title>
+		<title></title>
 		{% load static %}
 		<link rel="stylesheet" href="{% static 'css/main.css' %}">
-		<link rel="stylesheet" href="{% static 'css/home.css' %}">
 		<link rel="stylesheet" href="{% static 'css/home.css' %}">
 		{% if user.is_staff and is_edit %}
 			<link rel="stylesheet" href="{% static 'css/editor.css' %}">
@@ -18,14 +17,13 @@
 	{% include 'top_menu.html' %}
 	<div id="content_wrap" class="content-wrap">
 		{% if user.is_staff and is_edit %}
-			<input id="content_header" type="text" value="{{ title | safe }}"></input>
+			<input id="content_header" type="text" value=""></input>
 		{% else %}
-			<div id="content_header">{{ title }}</div>
+			<h1 id="content_header">{{ title }}</h1>
 		{% endif %}
 		<div id="wrap_content" class="flex-row-sb">
-			<div id="content_list">
-				{{content_list | safe}}
-			</div>
+			<nav id="content_list">
+			</nav>
 			{% if user.is_staff and is_edit %}
 			<div id="edit_panel">
 				<div id="edit_bar">
@@ -96,8 +94,8 @@
 				</div>
 			</div>
 			{% else %}
-				<div id="content" class="content-text">
-				</div>
+				<article id="content" class="content-text">
+				</article>
 			{% endif %}
 		</div>
 	</div>
