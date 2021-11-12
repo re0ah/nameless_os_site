@@ -11,7 +11,7 @@
 }
 
 .task-message {
-    margin: 10px;
+    margin: 10px 10px 0 10px;
 }
 
 .wrap-task-title-state {
@@ -33,13 +33,27 @@
     background: #555;
 }
 
-.task-data-created {
+.task-comments {
+    border-top: solid 2px #999;
+}
+
+.task-wrap-solved {
     border-left: solid 2px #999;
-    background: #333;
+    border-bottom: solid 2px #999;
+    background: #555;
+    text-align: right;
 }
 
 .task-data-solved {
     border-right: solid 2px #999;
+    border-bottom: solid 2px #999;
+    display: inline-block;
+}
+
+.task-data-created {
+    border-left: solid 2px #999;
+    border-bottom: 0;
+    background: #333;
 }
 
 .wrap-btn-comment-solved {
@@ -53,22 +67,23 @@
 }
 
 .task-open-comments-label {
-    border-left: solid 2px #999;
-    border-right: solid 2px #999;
+    border: solid 2px #999;
+    border-top: none;
     cursor: pointer;
     background: #555;
     transition: 0.2s;
-    border-bottom: solid 2px #999;
     padding: 10px;
     text-align: center;
     display: block;
+    background: #4F4F4F;
+    margin: 0 25%;
 }
 
-.task-open-comments:hover {
+.task-open-comments-label:hover {
     background: #444;
 }
 
-.task-open-comments:active {
+.task-open-comments-label:active {
     background: #333;
 }
 
@@ -85,9 +100,28 @@
 }
 
 .task-space-between {
-    border-top: solid 2px #999;
+    border-top: solid 5px #CCC;
+    margin: 20px 0;
+}
+
+.task-space-end {
+    margin-top: 10px;
+}
+
+.wrap-task-comments {
+    background: #333;
+    margin-top: 5px;
+    padding-bottom: 10px;
+    border-bottom: solid 2px #999;
 }
 
 .task-comments {
-    padding: 0;
+    margin-top: 10px;
+}
+
+.task-btn-answer {
+    display: inline-block;
+    padding: 6px;
+    border-top: none;
+    margin: 0;
 }

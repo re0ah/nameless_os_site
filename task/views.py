@@ -69,17 +69,85 @@ class Manage_task_tracker():
 		else:
 			return JsonResponse(ret)
 
+	def create_html_node_solved(title:str,
+						 		content:str,
+						 		author:str,
+						 		task_type:str,
+						 		date_create:str,
+						 		date_resolve:str,
+								_id:str,
+								if_last_comment:bool,
+								comments):
+		task = f"""<div id="wrap_task_tracker_solved">
+				<div class="wrap-task-message">
+				<div class="task-message">
+					<div class="flex-row-sb wrap-task-title-state">
+						<div class="task-title">{title}</div>
+						<div class="task-state">{task_type}</div>
+					</div>
+					<div class="task-text-wrap">
+						<div class="task-wrap-solved"><div class="task-data-created task-data-solved">Выполнено: {date_resolve}</div></div>
+			<div class="task-text">
+				{content}
+			</div>
+			</div>
+					<div class="flex-row-sb task-info-bar">
+						<div class="task-user-created">{author}</div>
+						<div class="task-data-created">Создано: {date_create}</div>
+					</div>
+			</div>
+					<input id="task_{_id}" class="task-open-comments" type="checkbox" checked></input>
+					<label for="task_{_id}" class="task-open-comments-label"></label>
+					<div class="wrap-task-comments">
+			"""
+		comments_html = ""
+		for i in comments:
+			comments_html += f"""
+					<div class="task-comments">
+						<div class="flex-row-sb task-info-bar">
+							<div class="task-user-created">{i.author}</div>
+							<div class="task-data-created">{i.date.strftime("%m/%d/%Y, %H:%M:%S")}</div>
+						</div>
+						<div class="task-text-wrap">
+							<div class="task-text">{i.content}</div>
+						</div>
+						<div class="task-open-comments-label task-btn-answer">
+							Ответить
+						</div>
+					</div>
+			"""
+		if not if_last_comment:
+			end = """
+ 			       </div>
+					</div>
+					<div class="task-space-between"></div>
+				</div>"""
+			return task + comments_html + end
+		else:
+			end = """
+ 			       </div>
+					</div>
+					<div class="task-space-end"></div>
+				</div>"""
+			return task + comments_html + end
+
 	def get_task_list_solved(request):
 		result = ""
-		for i in Task.objects.all():
-			args = (i.title,
-				    i.content,
-					i.author.username,
-					i.task_type.title,
-					i.date_create.strftime("%m/%d/%Y, %H:%M:%S")
+		i = 0
+		tasks = Task.objects.filter(task_type=Task_type.objects.get(id=2))
+		while i < len(tasks):
+			args = (tasks[i].title,
+				    tasks[i].content,
+					tasks[i].author.username,
+					tasks[i].task_type.title,
+					tasks[i].date_create.strftime("%m/%d/%Y, %H:%M:%S"),
+					tasks[i].date_resolve.strftime("%m/%d/%Y, %H:%M:%S"),
+					str(tasks[i].id),
+					i == (len(tasks) - 1),
+					tasks[i].comments.all()
 			)
-			if i.task_type.id == 2:  # Решено
-				result += Manage_task_tracker.create_html_node(*args)
+			result += Manage_task_tracker.create_html_node_solved(*args)
+			i += 1
 
 		ret = {"task_list": result}
 		if "get_hash" in request.GET:

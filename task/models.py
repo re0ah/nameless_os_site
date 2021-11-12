@@ -1,6 +1,7 @@
 from django.db import models
 import datetime
 from django.contrib.auth.models import User
+from comment.models import Comment
 
 class Task_type(models.Model):
 	class Meta:
@@ -20,6 +21,7 @@ class Task(models.Model):
 	date_resolve	= models.DateTimeField(null=True, blank=True)
 	author			= models.ForeignKey(User, on_delete=models.CASCADE)
 	task_type		= models.ForeignKey(Task_type, on_delete=models.CASCADE)
+	comments		= models.ManyToManyField(Comment, symmetrical=False, null=True, blank=True, related_name='+')
 
 	def __str__(self):
 		return f'{self.title}'
