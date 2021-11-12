@@ -102,6 +102,23 @@ class Manage_task_tracker():
 			"""
 		comments_html = ""
 		for i in comments:
+			answers_html = ""
+			for j in i.answer.all():
+				answers_html += f"""
+					<div class="task-comment-answer">
+						<div class="flex-row-sb task-info-bar">
+							<div class="task-user-created">{j.author}</div>
+							<div class="task-data-created">{j.date.strftime("%m/%d/%Y, %H:%M:%S")}</div>
+						</div>
+						<div class="task-text-wrap">
+							<div class="task-text">{j.content}</div>
+						</div>
+						<div class="task-open-comments-label task-btn-answer">
+							Ответить
+						</div>
+					</div>
+				"""
+
 			comments_html += f"""
 					<div class="task-comments">
 						<div class="flex-row-sb task-info-bar">
@@ -114,6 +131,7 @@ class Manage_task_tracker():
 						<div class="task-open-comments-label task-btn-answer">
 							Ответить
 						</div>
+						{answers_html}
 					</div>
 			"""
 		if not if_last_comment:
